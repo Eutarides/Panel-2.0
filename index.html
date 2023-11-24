@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="shortcut icon" href="">
+        <title>Tienda online 2.1</title>
+        <meta name="description" content="descripción de la web, se recomienda 90 caracteres">
+        <meta name="keywords"    content="palabras clave, separadas, por comas">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+        <link href="index.css" rel="stylesheet">
+        <script type="module" src="./app.js"></script>
+
+        <script type="module" src="dist/index.js"></script>
+    </head>
+    <body>
+        <header>
+            <div class="logo">
+                <div class="header-logo">
+                    <picture>
+                        <a href="#"><img src="./images/Logo.webp" alt="Chromatic, vive tus colores."></a>
+                    </picture>
+                </div>
+            </div>
+            <div class="header-title">
+                <div class="header-title">
+                    <h1>Clientes</h1>
+                </div>
+            </div>
+            <div class="header-hamburger">
+                <div class="hamburger">
+                    <span class="line line-1"></span>
+                    <span class="line line-2"></span>
+                    <span class="line line-3"></span>
+                </div>
+            </div>
+        </header>
+        <main>
+            <section>
+                <div class="overlay">
+                    <div class="modal">
+                        <div class="modal-message">
+                            <p>¿Desea borrar este registro?</p>
+                        </div>
+                        <div class="modal-buttons">
+                            <div class="modal-confirm-button">
+                                <button>Si</button>
+                            </div>
+                            <div class="modal-deny-button">
+                                <button>No</button>
+                            </div>
+                        </div>              
+                    </div>
+                </div>
+                <div class="overlay">
+                    <div class="overlay-menu">
+                        <button class="overlay-button active" data-value="1">Imágenes</button>
+                        <button class="overlay-button" data-value="2">Galería</button>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>close</title><path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" /></svg>
+                    </div>
+                    <div class="image-overlay row active" data-value="1">
+                        <div class="image-overlay-title">
+                            <p>Selecciona una imágen.</p>
+                        </div>
+                        <div class="image-overlay-svg">
+                            <input type="file" id="file-input" style="display: none;">
+                            <label for="file-input">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>tab-plus</title><path d="M3,3A2,2 0 0,0 1,5V19A2,2 0 0,0 3,21H21A2,2 0 0,0 23,19V5A2,2 0 0,0 21,3H3M3,5H13V9H21V19H3V5M10,10V13H7V15H10V18H12V15H15V13H12V10H10Z" /></svg>
+                            </label>                
+                        </div>
+                    </div>
+                    <div class="gallery-overlay row" data-value="2">
+                        <div class="gallery-overlay-menu">
+                            <p>Título</p>
+                            <input class="title"></input>
+                            <p>Texto alternativo</p>
+                            <input class="alt"></input>
+                        </div>
+                        <button>Elegir imagen</button>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="filter">
+                    <div class= "filter-svg">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>filter-menu</title><path d="M11 11L16.76 3.62A1 1 0 0 0 16.59 2.22A1 1 0 0 0 16 2H2A1 1 0 0 0 1.38 2.22A1 1 0 0 0 1.21 3.62L7 11V16.87A1 1 0 0 0 7.29 17.7L9.29 19.7A1 1 0 0 0 10.7 19.7A1 1 0 0 0 11 18.87V11M13 16L18 21L23 16Z" />
+                        </svg>
+                    </div>
+                    <form class="filter-form">
+                        <div class="input-title">
+                            <p>Id</p>
+                            <div class="input-row">
+                                <input name="id" type="text" class="id-input active">
+                            </div>
+                        </div>
+                        <div class="input-title">
+                            <p>Name</p>
+                            <div class="input-row">
+                                <input name="name" type="text" class="name-input active">
+                            </div>
+                        </div>
+                        <div class="input-title">
+                            <p>Email</p>
+                            <div class="input-row">
+                                <input name="email" type="text" class="email-input active">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </section>
+            <div class="data-management">
+                <div class="client-column">
+                    <div class="table">
+                        <div class="client-item">
+                            <div class="client-item-images">
+                                <div class="edit-button">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>pencil</title><path d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z" />
+                                    </svg>
+                                </div>
+                                <div class="delete-button">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>delete</title><path d="M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z" />
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="client-item-data">
+                                <div class="data-row">
+                                    <h3>Email:</h3>
+                                    <h3>Nombre:</h3>
+                                    <h3>Apellidos:</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="client-item">
+                            <div class="client-item-images">
+                                <div class="edit-button">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>pencil</title><path d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z" />
+                                    </svg>
+                                </div>
+                                <div class="delete-button">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>delete</title><path d="M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z" />
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="client-item-data">
+                                <div class="data-row">
+                                    <h3>Email:</h3>
+                                    <h3>Nombre:</h3>
+                                    <h3>Apellidos:</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="client-item">
+                            <div class="client-item-images">
+                                <div class="edit-button">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>pencil</title><path d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z" />
+                                    </svg>
+                                </div>
+                                <div class="delete-button">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>delete</title><path d="M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z" />
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="client-item-data">
+                                <div class="data-row">
+                                    <h3>Email:</h3>
+                                    <h3>Nombre:</h3>
+                                    <h3>Apellidos:</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="client-item">
+                            <div class="client-item-images">
+                                <div class="edit-button">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>pencil</title><path d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z" />
+                                    </svg>
+                                </div>
+                                <div class="delete-button">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>delete</title><path d="M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z" />
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="client-item-data">
+                                <div class="data-row">
+                                    <h3>Email:</h3>
+                                    <h3>Nombre:</h3>
+                                    <h3>Apellidos:</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu">
+                    </div>
+                </div>
+                <div class="client-form">
+                    <form>
+                        <div class="image-menu">
+                            <div class="image-menu-title">
+                                <div class="image-menu-title-principal active image-menu-button" data-value= "1">
+                                    <h3>Principal</h3>
+                                </div>
+                                <div class="image-menu-title-imagenes image-menu-button" data-value= "2">
+                                    <h3>Imágenes</h3>
+                                </div>
+                            </div>
+                            <div class="image-menu-svg">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>broom</title><path d="M19.36,2.72L20.78,4.14L15.06,9.85C16.13,11.39 16.28,13.24 15.38,14.44L9.06,8.12C10.26,7.22 12.11,7.37 13.65,8.44L19.36,2.72M5.93,17.57C3.92,15.56 2.69,13.16 2.35,10.92L7.23,8.83L14.67,16.27L12.58,21.15C10.34,20.81 7.94,19.58 5.93,17.57Z" />
+                                </svg>
+                                <div class="send-form-button"> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>content-save</title><path d="M15,9H5V5H15M12,19A3,3 0 0,1 9,16A3,3 0 0,1 12,13A3,3 0 0,1 15,16A3,3 0 0,1 12,19M17,3H5C3.89,3 3,3.9 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V7L17,3Z" /></svg></div>
+                            </div>
+                        </div>
+                        <div class="form-row active" data-value= "1">
+                            <input name="id" type="hidden">
+                            <div class="form-element">
+                                <div class="element-placeholder">
+                                    <p>Nombre de usuario</p>
+                                </div>
+                                <input name="name" type="text">
+                            </div>
+                            <div class="form-element">
+                                <div class="element-placeholder">
+                                    <p>Email</p>
+                                </div>
+                                <input name="email" type="text">
+                            </div>
+                        </div>
+                        <div class="form-row active" data-value= "1">
+                            <div class="form-element">
+                                <div class="element-placeholder">
+                                    <p>Contraseña</p>
+                                </div>
+                                <input name="password" type="password">
+                            </div>
+                            <div class="form-element">
+                                <div class="element-placeholder">
+                                    <p>Confirma Contraseña</p>
+                                </div>
+                                <input name="confirmPassword" type="password">
+                            </div>
+                        </div>
+            
+                        <div class="form-row" data-value= "2">
+                            <div class= "form-element url-element">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>tab-plus</title><path d="M3,3A2,2 0 0,0 1,5V19A2,2 0 0,0 3,21H21A2,2 0 0,0 23,19V5A2,2 0 0,0 21,3H3M3,5H13V9H21V19H3V5M10,10V13H7V15H10V18H12V15H15V13H12V10H10Z" /></svg>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="overlay">
+                    <div class="overlay">
+                        <div class="modal">
+                            <div class="modal-message">
+                                <p>¿Desea borrar este registro?</p>
+                            </div>
+                            <div class="modal-buttons">
+                                <div class="modal-confirm-button">
+                                    <button>Si</button>
+                                </div>
+                                <div class="modal-deny-button">
+                                    <button>No</button>
+                                </div>
+                            </div>              
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <div class="curtain"></div>
+    </body> 
