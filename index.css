@@ -804,7 +804,7 @@ button{
     width:100.4vw;
     height:100vh;
     background-color: #289292;
-    z-index: 1000;
+    z-index: 999;
     position:absolute;
     top:-1.5%;
     left:-1%;
