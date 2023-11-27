@@ -8,7 +8,6 @@ export default (() => {
     hamburger.addEventListener("click",()=>{
         curtain.classList.toggle("active");
         hamburger.classList.toggle("active");
-        console.log("hey");
     })
   
   })();

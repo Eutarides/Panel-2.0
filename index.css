@@ -349,121 +349,10 @@ img {
     position:absolute;
 }
 
-.filter{
-    width:90%;
-    height:3rem;
-    background-color: white;
-    align-items:center;
-    border-radius: 5px;
-    display:flex;
-    margin-left:5%;
-    flex-direction: column;
-}
-
-.filter.active{
-    width:90%;
-    height:100%;
-    background-color: white;
-    align-items:center;
-    border-radius: 5px;
-    display:flex;
-    margin-left:5%;
-    flex-direction: column;
-    margin-bottom:none;
-}
-
-.filter-svg{
-    width:3%;
-    height:50%;
-}
-svg{
-    width:100%;
-    fill:rgb(119, 173, 193);
-}
-
-svg.active{
-    width:100%;
-    fill:hsl(120, 59%, 41%);
-}
-
-.filter-form{
-    width:90%;
-    height:50%;
-    display:flex;
-    justify-content:space-between;
-    display:none;
-}
-
-.filter-form.active{
-    width:90%;
-    height:50%;
-    display:flex;
-    justify-content:space-between;
-}
-
-.filter input{
-    height:40%;
-    border-radius:7px;
-    border-style: none;
-    text-align: center;
-    box-sizing: border-box;
-    width: 30%;
-    font-family: "Poppins", sans-serif;
-    overflow: visible;
-    font-size: 100%;
-    line-height: 1.15;
-    margin: 0;
-    display:none
-}
-
-.input-title{
-    width:20%;
-    height:90%;
-    display:flex;
-    flex-direction:column;
-    gap:0.5rem;
-    margin-bottom:0.5rem;
-}
-
-.input-title p{
-    font-family: "Poppins", sans-serif;
-    font-size: 100%;
-    line-height: 1.15;
-    color:rgb(119, 173, 193);
-    text-align:center;
-    font-weight:900;
-    margin:0;
-}
-
-.filter input.active{
-    height:60%;
-    border-radius:5px;
-    border-style: none;
-    text-align: center;
-    box-sizing: border-box;
-    width: 100%;
-    font-family: "Poppins", sans-serif;
-    overflow: visible;
-    font-size: 100%;
-    line-height: 1.15;
-    margin: 0;
-    display:flex;
-    background-color:rgb(96, 105, 201);
-    bottom:0%;
-}
-
-.input-row{
-    display:flex;
-}
-
-.input-row svg{
-    width:13%;
-}
-
 .data-management{
     display:flex;
     justify-content:space-between;
-    height:100%;
+    height:80vh;
     width:90%;
     margin-top: 2%;
     margin-left:5%;
@@ -474,7 +363,7 @@ svg.active{
     width:45%;
     display:flex;
     flex-direction: column;
-    height:50vh;
+    height:80vh;
     justify-content: space-between;
     gap: 1rem;
 }
@@ -510,8 +399,7 @@ svg.active{
 
 .client-item{
     width:90%;
-    margin-bottom:1rem;
-    height:30%;
+    height:40%;
 }
 
 .client-item-images{
@@ -619,13 +507,146 @@ button{
     font-size:1.3rem;
 }
 
-.user-table{
-    width:40%;
+.table{
     height:80%;
+    width:90%;
+    align-items: center;
+    display: flex;
+    flex-direction:column;
+    gap:1rem;
+
 }
 
-.table{
-    height:100%;
+.filter{
+    width:90%;
+    background-color: white;
+    align-items:center;
+    border-radius: 5px;
+    display:flex;
+    flex-direction: column;
+    height:5%;
+}
+
+.filter-svg{
+    width:5%;
+}
+svg{
+    width:100%;
+    fill:rgb(119, 173, 193);
+}
+
+svg.active{
+    width:100%;
+    fill:hsl(120, 59%, 41%);
+}
+
+.filter-form{
+    width:90%;
+    height:50%;
+    display:flex;
+    justify-content:space-between;
+    display:none;
+}
+
+.filter-form.active{
+    width:90%;
+    height:50%;
+    display:flex;
+    justify-content:space-between;
+}
+
+.filter input{
+    height:40%;
+    border-radius:7px;
+    border-style: none;
+    text-align: center;
+    box-sizing: border-box;
+    width: 30%;
+    font-family: "Poppins", sans-serif;
+    overflow: visible;
+    font-size: 100%;
+    line-height: 1.15;
+    margin: 0;
+    display:none
+}
+
+.input-title{
+    width:20%;
+    height:90%;
+    display:flex;
+    flex-direction:column;
+    gap:0.5rem;
+    margin-bottom:0.5rem;
+}
+
+.input-title p{
+    font-family: "Poppins", sans-serif;
+    font-size: 100%;
+    line-height: 1.15;
+    color:rgb(119, 173, 193);
+    text-align:center;
+    font-weight:900;
+    margin:0;
+}
+
+.filter input.active{
+    height:60%;
+    border-radius:5px;
+    border-style: none;
+    text-align: center;
+    box-sizing: border-box;
+    width: 100%;
+    font-family: "Poppins", sans-serif;
+    overflow: visible;
+    font-size: 100%;
+    line-height: 1.15;
+    margin: 0;
+    display:flex;
+    background-color:rgb(96, 105, 201);
+    bottom:0%;
+}
+
+.input-row{
+    display:flex;
+}
+
+.input-row svg{
+    width:13%;
+}
+
+.page-counter{
+    width:90%;
+    height:13%;
+    display: flex;
+    flex-direction: column;
+    background-color:white;
+    border-radius:5px;
+}
+
+.counter-info{
+    display:flex;
+    justify-content: space-between;
+    padding:0% 5%;
+}
+
+.page-counter-buttons{
+    display:flex;
+    justify-content: space-between;
+    padding:0% 25%;
+    flex-direction: row;
+    height:25%;
+}
+
+.counter-button{
+    color:grey;
+    border:solid grey 1px;
+    border-radius:5px;
+    padding:0% 2%;
+}
+
+.counter-button p{
+    margin-block-start: 0;
+    margin-block-end: 0;
 }
 
 .client-form{
@@ -659,6 +680,7 @@ button{
     display: flex;
     align-items: center;
     height:100%;
+    justify-content: space-around;
 }
 
 .image-menu-title-principal.active{
@@ -676,6 +698,7 @@ button{
     border-radius: 5px;
     display: flex;
     align-items: center;
+    justify-content: space-around;
 }
 
 .image-menu-title-imagenes.active{
@@ -688,7 +711,6 @@ button{
 
 .image-menu-title-imagenes h3{
     text-align: center;
-    padding-left:10%;
     color:white;
     font-family: "Poppins", sans-serif;
     margin: 0;
@@ -697,7 +719,6 @@ button{
 
 .image-menu-title-principal h3{
     text-align: center;
-    padding-left:15%;
     color:white;
     font-family: "Poppins", sans-serif;
     margin: 0;
@@ -798,16 +819,40 @@ button{
     height:0;
     position:absolute;
     top:0%;
+    transition:0.7s;
 }
 
 .curtain.active{
     width:100.4vw;
     height:100vh;
     background-color: #289292;
-    z-index: 999;
+    z-index: 1000;
     position:absolute;
     top:-1.5%;
     left:-1%;
     display:block;
-    transition:0.7s;
+}
+
+.filter-modal{
+    position:absolute;
+}
+
+.announcement{
+
+}
+
+.filter-form{
+
+}
+
+.filter-modal-buttons{
+
+}
+
+.filter-button{
+
+}
+
+.filter-button.cancel{
+
 }

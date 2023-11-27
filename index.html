@@ -12,7 +12,7 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
         <link href="index.css" rel="stylesheet">
-        <script type="module" src="./app.js"></script>
+        <script type="module" src="./src/app.js"></script>
 
         <script type="module" src="dist/index.js"></script>
     </head>
@@ -83,7 +83,7 @@
                     </div>
                 </div>
             </section>
-            <section>
+            <!-- <section>
                 <div class="filter">
                     <div class= "filter-svg">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>filter-menu</title><path d="M11 11L16.76 3.62A1 1 0 0 0 16.59 2.22A1 1 0 0 0 16 2H2A1 1 0 0 0 1.38 2.22A1 1 0 0 0 1.21 3.62L7 11V16.87A1 1 0 0 0 7.29 17.7L9.29 19.7A1 1 0 0 0 10.7 19.7A1 1 0 0 0 11 18.87V11M13 16L18 21L23 16Z" />
@@ -110,9 +110,15 @@
                         </div>
                     </form>
                 </div>
-            </section>
+            </section> -->
             <div class="data-management">
                 <div class="client-column">
+                    <div class="filter">
+                        <div class= "filter-svg">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>filter-menu</title><path d="M11 11L16.76 3.62A1 1 0 0 0 16.59 2.22A1 1 0 0 0 16 2H2A1 1 0 0 0 1.38 2.22A1 1 0 0 0 1.21 3.62L7 11V16.87A1 1 0 0 0 7.29 17.7L9.29 19.7A1 1 0 0 0 10.7 19.7A1 1 0 0 0 11 18.87V11M13 16L18 21L23 16Z" />
+                            </svg>
+                        </div>
+                    </div>
                     <div class="table">
                         <div class="client-item">
                             <div class="client-item-images">
@@ -191,7 +197,29 @@
                             </div>
                         </div>
                     </div>
-                    <div class="menu">
+                    <div class="page-counter">
+                        <div class="counter-info">
+                            <div class="info-registers">
+                                <p>1-4 de 4 registros</p>
+                            </div>
+                            <div class="info-page">
+                                <p>Página 1 de 1</p>
+                            </div>
+                        </div>
+                        <div class="page-counter-buttons">
+                            <div class="counter-button first">
+                                <p>Primera</p>
+                            </div>
+                            <div class="counter-button previous">
+                                <p>Anterior</p>
+                            </div>
+                            <div class="counter-button next">
+                                <p>Siguiente</p>
+                            </div>
+                            <div class="counter-button last">
+                                <p>Última</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="client-form">
@@ -263,6 +291,29 @@
                                 </div>
                             </div>              
                         </div>
+                    </div>
+                </div>
+                <div class="filter-modal">
+                    <div class="announcement">
+                        <p>Filtraje de tabla</p>
+                    </div>
+                    <form class="filter-form">
+                        <div class="input-title">
+                            <p>Nombre</p>
+                            <div class="input-row">
+                                <input name="name" type="text" class="id-input active">
+                            </div>
+                        </div>
+                        <div class="input-title">
+                            <p>Email</p>
+                            <div class="input-row">
+                                <input name="email" type="text" class="id-input active">
+                            </div>
+                        </div>
+                    </form>
+                    <div class="filter-modal-buttons">
+                        <button class="filter-button confirm">Filtrar</button>
+                        <button class="filter-button cancel">Cancelar</button>
                     </div>
                 </div>
             </div>
