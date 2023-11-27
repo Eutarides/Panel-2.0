@@ -26,6 +26,9 @@ header{
     margin: 0;
 }
 
+p{
+    font-family: "Poppins", sans-serif;
+}
 
 .header-hamburger{
     width:4%;
@@ -519,7 +522,7 @@ button{
 
 .filter{
     width:90%;
-    background-color: white;
+    background-color:rgb(119, 173, 193);
     align-items:center;
     border-radius: 5px;
     display:flex;
@@ -532,7 +535,7 @@ button{
 }
 svg{
     width:100%;
-    fill:rgb(119, 173, 193);
+    fill:white;
 }
 
 svg.active{
@@ -540,43 +543,11 @@ svg.active{
     fill:hsl(120, 59%, 41%);
 }
 
-.filter-form{
-    width:90%;
-    height:50%;
-    display:flex;
-    justify-content:space-between;
-    display:none;
-}
-
-.filter-form.active{
-    width:90%;
-    height:50%;
-    display:flex;
-    justify-content:space-between;
-}
-
-.filter input{
-    height:40%;
-    border-radius:7px;
-    border-style: none;
-    text-align: center;
-    box-sizing: border-box;
-    width: 30%;
-    font-family: "Poppins", sans-serif;
-    overflow: visible;
-    font-size: 100%;
-    line-height: 1.15;
-    margin: 0;
-    display:none
-}
-
 .input-title{
-    width:20%;
-    height:90%;
     display:flex;
     flex-direction:column;
     gap:0.5rem;
-    margin-bottom:0.5rem;
+    width:90%;
 }
 
 .input-title p{
@@ -589,37 +560,12 @@ svg.active{
     margin:0;
 }
 
-.filter input.active{
-    height:60%;
-    border-radius:5px;
-    border-style: none;
-    text-align: center;
-    box-sizing: border-box;
-    width: 100%;
-    font-family: "Poppins", sans-serif;
-    overflow: visible;
-    font-size: 100%;
-    line-height: 1.15;
-    margin: 0;
-    display:flex;
-    background-color:rgb(96, 105, 201);
-    bottom:0%;
-}
-
-.input-row{
-    display:flex;
-}
-
-.input-row svg{
-    width:13%;
-}
-
 .page-counter{
     width:90%;
     height:13%;
     display: flex;
     flex-direction: column;
-    background-color:white;
+    background-color:rgb(119, 173, 193);
     border-radius:5px;
 }
 
@@ -638,8 +584,8 @@ svg.active{
 }
 
 .counter-button{
-    color:grey;
-    border:solid grey 1px;
+    color:white;
+    border:solid white 1px;
     border-radius:5px;
     padding:0% 2%;
 }
@@ -825,7 +771,7 @@ svg.active{
 .curtain.active{
     width:100.4vw;
     height:100vh;
-    background-color: #289292;
+    background-color: hsl(180, 57%, 36%);
     z-index: 1000;
     position:absolute;
     top:-1.5%;
@@ -835,24 +781,88 @@ svg.active{
 
 .filter-modal{
     position:absolute;
+    top:27.5%;
+    left:35%;
+    width:30%;
+    height:45%;
+    background-color:  hsl(180, 57%, 36%);
+    border-radius:10px;
+    display:flex;
+    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
+    opacity:0;
+    visibility: hidden;
+    transition:0.7s;
+}
+
+.filter-modal.active{
+    opacity: 1;
+    visibility: visible;
+    transition:0.7s;
 }
 
 .announcement{
+    padding:5% 10% 0% 10%;
+    height:15%;
+}
 
+.announcement p{
+    font-size: 1.3rem;
+    font-weight: 600;
+    color:white;
 }
 
 .filter-form{
+    height:35%;
+    width:90%;
+    display:flex;
+    justify-content:space-between;
+    flex-direction: column;
+    align-items: center;
+}
 
+.filter-form.active{
+    width:90%;
+    height:50%;
+    display:flex;
+    justify-content:space-between;
+}
+
+.input-title{
+    display:flex;
+    flex-direction:column;
+    gap:0.5rem;
+    width:90%;
+}
+
+.input-title p{
+    font-family: "Poppins", sans-serif;
+    font-size: 100%;
+    line-height: 1.15;
+    color:white;
+    text-align:center;
+    font-weight:900;
+    margin:0;
+}
+
+.input-row{
+    display:flex;
+}
+
+.input-row input{
+    height:100%;
 }
 
 .filter-modal-buttons{
-
-}
-
-.filter-button{
-
+    display:flex;
+    flex-direction: row;
+    height:20%;
+    justify-content: space-between;
+    width:81%;
+    gap:2.6rem;
 }
 
 .filter-button.cancel{
-
+    background-color: rgba(231, 118, 26, 0.904);
 }
