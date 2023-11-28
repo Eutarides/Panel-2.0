@@ -578,9 +578,10 @@ svg.active{
 .page-counter-buttons{
     display:flex;
     justify-content: space-between;
-    padding:0% 25%;
+    padding:0% 20%;
     flex-direction: row;
     height:25%;
+    gap:0.5rem;
 }
 
 .counter-button{
@@ -779,10 +780,30 @@ svg.active{
     display:block;
 }
 
-.filter-modal{
+.modal-overlay{
+    z-index:1003;
+    width:100.4vw;
+    height:100vh;
     position:absolute;
-    top:27.5%;
-    left:35%;
+    top:-1%;
+    left:-1%;
+    display:flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-around;
+    opacity:0;
+    visibility: hidden;
+    transition:0.7s;
+    background-color: rgba(20, 3, 95, 0.493);
+
+}
+
+.modal-overlay.active{
+    visibility: visible;
+    opacity: 1;
+}
+
+.filter-modal{
     width:30%;
     height:45%;
     background-color:  hsl(180, 57%, 36%);
@@ -791,7 +812,7 @@ svg.active{
     justify-content: space-between;
     flex-direction: column;
     align-items: center;
-    opacity:0;
+    opacity:1;
     visibility: hidden;
     transition:0.7s;
 }
@@ -866,3 +887,67 @@ svg.active{
 .filter-button.cancel{
     background-color: rgba(231, 118, 26, 0.904);
 }
+
+.delete-overlay{
+    z-index:1004;
+    width:100.4vw;
+    height:100vh;
+    position:absolute;
+    top:-1%;
+    left:-1%;
+    display:flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-around;
+    opacity:0;
+    visibility: hidden;
+    transition:0.7s;
+    background-color: rgba(20, 3, 95, 0.493);
+
+}
+
+.delete-overlay.active{
+    visibility: visible;
+    opacity: 1;
+}
+
+.delete-modal{
+    width:30%;
+    height:25%;
+    background-color:  hsl(180, 57%, 36%);
+    border-radius:10px;
+    display:flex;
+    justify-content: space-around;
+    flex-direction: column;
+    align-items: center;
+    opacity:0;
+    visibility: hidden;
+    transition:0.7s;
+}
+
+.delete-modal.active{
+    opacity: 1;
+    visibility: visible;
+    transition:0.7s;
+}
+
+.delete-announcement{
+    display:flex;
+    justify-content: space-around;
+}
+
+.delete-announcement p{
+    font-size: 1.3rem;
+    font-weight: 600;
+    color:white;
+}
+
+.delete-modal-buttons{
+    display:flex;
+    justify-content: space-between;
+    flex-direction: row;
+    height:30%;
+    width:80%;
+    gap:1.5rem;
+}
+
