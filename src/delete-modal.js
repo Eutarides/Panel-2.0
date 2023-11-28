@@ -5,13 +5,6 @@ export default (() => {
     let overlay = document.querySelector(".delete-overlay");
     let cancelButton = document.querySelector(".delete-modal-button.cancel");
 
-    binButtons.forEach(binButton => {
-        binButton.addEventListener('click', () => {
-            deleteModal.classList.toggle("active");
-            overlay.classList.toggle("active");
-        });
-    });
-
     cancelButton.addEventListener('click', () => {
         deleteModal.classList.remove("active");
         overlay.classList.remove("active");
