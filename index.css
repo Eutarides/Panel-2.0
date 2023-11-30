@@ -496,6 +496,10 @@ input{
     border:none;
     font-size:1.3rem;
 }
+
+.validate.active{
+    border:solid rgb(231, 14, 14) 1px;
+}
 .page-counter{
     width:100%;
 }

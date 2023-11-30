@@ -19,6 +19,9 @@ export default (() => {
             button.parentElement.querySelector('.active').classList.remove('active')
             button.classList.add('active');
 
+            // button.closest('form').querySelector(".form-row.active").classList.remove('active');
+            // button.closest('form').querySelector(`.form-row[data-value="${button.dataset.value}"]`).classList.add('active');
+
             formRows.forEach( formRow => {
                 if (button.dataset.value == formRow.dataset.value){
                     formRow.classList.add('active');
