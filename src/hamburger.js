@@ -12,7 +12,7 @@ class Hamburger extends HTMLElement {
         `
         <style>
             .header-hamburger{
-                width:20%;
+                width:100%;
                 display:flex;
                 justify-content: end;
             
@@ -87,22 +87,19 @@ class Hamburger extends HTMLElement {
             }
 
             .curtain{
-                width:100vw;
-                height:0;
-                position:absolute;
-                top:0%;
+                background-color: hsl(180, 57%, 36%);
+                width:100%;
+                height:100vh;
+                left: 0;
+                position: fixed;
+                top:-100vh;
                 transition:0.7s;
+                z-index: 1000;
             }
             
             .curtain.active{
-                width:100.4vw;
-                height:100vh;
-                background-color: hsl(180, 57%, 36%);
-                z-index: 1000;
-                position:absolute;
-                top:-1.5%;
-                left:-1%;
-                display:block;
+                top: 0;
+                transition:0.7s;
             }
             
         
@@ -121,15 +118,12 @@ class Hamburger extends HTMLElement {
         `;
 
         let curtain= this.shadow.querySelector(".curtain");
-
         let hamburger= this.shadow.querySelector(".hamburger");
-
 
         hamburger.addEventListener("click",()=>{
             curtain.classList.toggle("active");
             hamburger.classList.toggle("active");
         })
-  
 
     }
 }
