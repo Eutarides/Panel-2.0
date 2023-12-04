@@ -15,6 +15,5 @@ export default (() => {
     filter.addEventListener("click",()=>{
         document.dispatchEvent(new CustomEvent('show-filter-modal', {
         }));
-
     })
 })();

@@ -1,4 +1,4 @@
-import './filter-modal.js';
+import './filter-moda.js';
 import './delete-modal.js';
 import './table.js';
 import './tabs.js';
