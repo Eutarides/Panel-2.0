@@ -6,6 +6,14 @@ class Notification extends HTMLElement {
         this.render();
     }
 
+    connectedCallback() {
+        document.addEventListener('notification', (event => {
+            console.log("compa");    
+            this.notification();
+
+        }));
+    };
+
     render() {
 
         this.shadow.innerHTML = 
@@ -13,41 +21,32 @@ class Notification extends HTMLElement {
         <style>
             .notification{
                 position:fixed;
-                right:2%;
-                bottom:3%;
+                right:5.3%;
+                bottom:45%;
                 border-radius:5px;
                 background-color: hsl(123, 59%, 51%);
                 opacity:0;
                 visibility:hidden;
                 transition:0.5s;
+                padding:0 2%;
             }
 
             .notification.active{
                 position:fixed;
-                right:2%;
-                bottom:3%;
+                right:5.3%;
+                bottom:45%;
                 border-radius:5px;
                 background-color: hsl(123, 59%, 51%);
                 opacity:1;
                 visibility:visible;
                 z-index:1000;
                 transition:0.5s;
+                padding:0 2%;
             }
 
             p{
                 font-family: "Poppins", sans-serif;
                 color:white;
-            }
-
-
-            
-            .header-title h1{
-                color:white;
-                font-size: 2.5rem;
-                font-weight: 600;
-                text-decoration: none;
-                font-family: "Poppins", sans-serif;
-                margin: 0;
             }
         </style>
 
@@ -56,6 +55,17 @@ class Notification extends HTMLElement {
         </div>
 
         `;
+
+
+
+    }
+
+    notification(){
+        let noti = this.shadow.querySelector('.notification');
+
+        noti.classList.add('active');
+
+        setTimeout(function() {noti.classList.remove('active');}, 1000);
 
     }
 }

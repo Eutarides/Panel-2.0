@@ -260,7 +260,7 @@ class ClientForm extends HTMLElement {
         });
 
         save.addEventListener('click', async (event) => {
-            document.dispatchEvent(new CustomEvent('show-delete-modal', {
+            document.dispatchEvent(new CustomEvent('notification', {
             }));
         });
     };
