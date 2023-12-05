@@ -238,6 +238,7 @@ class ClientForm extends HTMLElement {
 
         let imageMenu = this.shadow.querySelector('.image-menu');
         let formRows = this.shadow.querySelectorAll('.form-row');
+        let save = this.shadow.querySelector('.send-form-button');
 
         imageMenu?.addEventListener('click', async (event) => {
             if (event.target.closest('.image-menu-button')) {
@@ -256,6 +257,11 @@ class ClientForm extends HTMLElement {
                     }
                 })
             }
+        });
+
+        save.addEventListener('click', async (event) => {
+            document.dispatchEvent(new CustomEvent('show-delete-modal', {
+            }));
         });
     };
 }
