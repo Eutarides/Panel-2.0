@@ -8,7 +8,6 @@ class FilterModal extends HTMLElement {
 
     connectedCallback() {
         document.addEventListener("show-filter-modal", (event => {
-            console.log("compa");
             this.openModal();
         
         }));
