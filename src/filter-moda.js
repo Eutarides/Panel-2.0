@@ -19,6 +19,32 @@ class FilterModal extends HTMLElement {
         this.shadow.innerHTML = 
         `
         <style>
+
+            button{
+                width:100%;
+                height:50%;
+                background-color: rgb(119, 173, 193);
+                color:white;
+                cursor: pointer;
+                border-radius:10px;
+                border:none;
+                font-size:1.3rem;
+            }
+            
+            p{
+                font-family: "Poppins", sans-serif;
+            }
+            
+            input{
+                width:100%;
+                height:65%;
+                background-color: rgb(119, 173, 193);
+                color:white;
+                cursor: pointer;
+                border-radius:10px;
+                border:none;
+                font-size:1.3rem;
+            }
             .modal-overlay{
                 z-index:1003;
                 width:100.4vw;
@@ -169,14 +195,10 @@ class FilterModal extends HTMLElement {
 
     openModal(){
 
-        let filter = this.shadow.querySelector(".filter-svg");
         let filterModal = this.shadow.querySelector(".filter-modal");
-        let svg = this.shadow.querySelector(".filter-svg svg");
         let overlay = this.shadow.querySelector(".modal-overlay");
 
-        filter.classList.toggle("active");
         filterModal.classList.add("active");
-        svg.classList.toggle("active");
         overlay.classList.toggle("active");
     };
 
@@ -186,7 +208,6 @@ class FilterModal extends HTMLElement {
         let overlay = this.shadow.querySelector(".modal-overlay");
 
         filterModal.classList.remove("active");
-        svg.classList.remove("active");
         overlay.classList.remove("active");
     };
 }
