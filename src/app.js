@@ -5,3 +5,4 @@ import './validation.js';
 import './title.js';
 import './hamburger.js';
 import './tableComponent.js';
+import './delete-modalComponent.js';

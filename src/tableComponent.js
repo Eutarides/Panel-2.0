@@ -329,8 +329,7 @@ class Table extends HTMLElement {
     
         tableSection?.addEventListener('click', async (event) => {
             if (event.target.closest('.delete-button')) {
-
-                this.shadow.dispatchEvent(new CustomEvent('show-delete-modal', {
+                document.dispatchEvent(new CustomEvent('show-delete-modal', {
                 }));
             }
         });
