@@ -1,8 +1,7 @@
-import './filter-moda.js';
-import './delete-modal.js';
-import './tabs.js';
+import './filter-modal.js';
 import './validation.js';
 import './title.js';
 import './hamburger.js';
-import './tableComponent.js';
-import './delete-modalComponent.js';
+import './table.js';
+import './delete-modal.js';
+import './client-form.js';
