@@ -1,5 +1,4 @@
 class Search extends HTMLElement {
-
   constructor () {
     super()
     this.shadow = this.attachShadow({ mode: 'open' })
@@ -12,7 +11,7 @@ class Search extends HTMLElement {
 
   render () {
     this.shadow.innerHTML =
-    /*html*/`
+    /* html */`
     <style>
       :host {
         max-width: 300px;

@@ -1,5 +1,4 @@
 class FeaturedGallery extends HTMLElement {
-
   constructor () {
     super()
     this.shadow = this.attachShadow({ mode: 'open' })
@@ -10,12 +9,12 @@ class FeaturedGallery extends HTMLElement {
   }
 
   async loadData () {
-  
+
   }
 
   render () {
     this.shadow.innerHTML =
-    /*html*/`
+    /* html */`
     <style>
       :host {
         height: 40vh;
