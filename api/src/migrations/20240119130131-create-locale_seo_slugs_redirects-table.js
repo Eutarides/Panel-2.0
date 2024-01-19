@@ -2,28 +2,28 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('product_category_relations', {
+    await queryInterface.createTable('locale_seo_slug_redirects', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      productCategoryId: {
+      localeSeoSlugId: {
         allowNull: false,
         type: Sequelize.INTEGER,
         references: {
-          model: 'product_categories',
+          model: 'customers',
           key: 'id'
         }
       },
-      productId: {
+      languageAlias: {
         allowNull: false,
-        type: Sequelize.INTEGER,
-        references: {
-          model: 'products',
-          key: 'id'
-        }
+        type: Sequelize.STRING,
+      },
+      oldUrl: {
+        allowNull: false,
+        type: Sequelize.STRING,
       },
       createdAt: {
         allowNull: false,
@@ -37,15 +37,12 @@ module.exports = {
         type: Sequelize.DATE
       }
     })
-    await queryInterface.addIndex('product_category_relations', ['productCategoryId'], {
-      name: 'product_category_relations_productCategoryId_fk'
-    })
-    await queryInterface.addIndex('product_category_relations', ['productId'], {
-      name: 'product_category_relations_productId_fk'
+    await queryInterface.addIndex('locale_seo_slug_redirects', ['localeSeoSlugId'], {
+      name: 'locale_seo_slug_redirects_localeSeoSlugId_fk'
     })
   },
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('product_category_relations')
+    await queryInterface.dropTable('locale_seo_slug_redirects')
   }
 }

@@ -2,71 +2,69 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('companies', {
+    await queryInterface.createTable('sales', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      countryId: {
+      cartid: {
         allowNull: false,
         type: Sequelize.INTEGER,
         references: {
-          model: 'countries',
+          model: 'carts',
           key: 'id'
         }
       },
-      cityId: {
+      customerId: {
         allowNull: false,
         type: Sequelize.INTEGER,
         references: {
-          model: 'cities',
+          model: 'customers',
           key: 'id'
         }
       },
-      dialCodeId: {
+      paymentMethodId: {
         allowNull: false,
         type: Sequelize.INTEGER,
         references: {
-          model: 'dial_codes',
+          model: 'payment_methods',
           key: 'id'
         }
       },
-      postalCode: {
+      couponId: {
         allowNull: false,
-        type: Sequelize.STRING
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'coupons',
+          key: 'id'
+        }
       },
-      fiscalAddress: {
-        allowNull: false,
-        type: Sequelize.STRING
-      },
-      comercialAddress: {
-        allowNull: false,
-        type: Sequelize.STRING
-      },
-      telephone: {
-        type: Sequelize.STRING
-      },
-      email: {
+      reference: {
         allowNull: false,
         type: Sequelize.STRING,
         unique:true
       },
-      web: {
-        type: Sequelize.STRING
-      },
-      fiscalName: {
+      totalPrice: {
         allowNull: false,
-        type: Sequelize.STRING
+        type: Sequelize.DECIMAL
       },
-      comercialName: {
+      totalBasePrice: {
         allowNull: false,
-        type: Sequelize.STRING
+        type: Sequelize.DECIMAL
       },
-      vat: {
+      totalTaxPrice: {
         allowNull: false,
-        type: Sequelize.STRING
+        type: Sequelize.DECIMAL
+      },
+      saleDate: {
+        allowNull: false,
+        type: Sequelize.DATE
+      },
+      saleTime: {
+        allowNull: false,
+        type: Sequelize.TIME
       },
       createdAt: {
         allowNull: false,
@@ -80,21 +78,21 @@ module.exports = {
         type: Sequelize.DATE
       }
     })
-    await queryInterface.addIndex('companies', ['countryId'], {
-      name: 'companies_countryId_fk'
+    await queryInterface.addIndex('sales', ['cartId'], {
+      name: 'sales_cartId_fk'
     })
-    await queryInterface.addIndex('companies', ['cityId'], {
-      name: 'companies_cityId_fk'
+    await queryInterface.addIndex('sales', ['customerId'], {
+      name: 'sales_customerId_fk'
     })
-    await queryInterface.addIndex('companies', ['dialCodeId'], {
-      name: 'companies_dialCodeId_fk'
+    await queryInterface.addIndex('sales', ['paymentMethodId'], {
+      name: 'sales_paymentMethodId_fk'
     })
-    await queryInterface.addIndex('companies', ['email'], {
-      name: 'companies_email_index'
+    await queryInterface.addIndex('sales', ['couponId'], {
+      name: 'sales_couponId_fk'
     })
   },
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('companies')
+    await queryInterface.dropTable('sales')
   }
 }

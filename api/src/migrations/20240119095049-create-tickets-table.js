@@ -2,48 +2,44 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('menu_items', {
+    await queryInterface.createTable('tickets', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      menuId: {
+      customerId: {
         allowNull: false,
         type: Sequelize.INTEGER,
         references: {
-          model: 'menus',
+          model: 'customers',
           key: 'id'
         }
-      },
-      localeSeoId: {
+      }, 
+      saleId: {
+        allowNull: false,
         type: Sequelize.INTEGER,
         references: {
-          model: 'locale_seos',
+          model: 'sales',
           key: 'id'
         }
       },
-      localeSeoSlugId: {
+      returnId: {
+        allowNull: false,
         type: Sequelize.INTEGER,
         references: {
-          model: 'locale_seo_slugs',
+          model: 'returns',
           key: 'id'
         }
       },
-      parent: {
-        type: Sequelize.INTEGER
-      },
-      customUrl: {
+      reference: {
+        allowNull: false,
         type: Sequelize.STRING
       },
-      private: {
-        type: Sequelize.BOOLEAN,
-        allowNull:false,
-        defaultValue: 0,
-      },
-      order: {
-        type: Sequelize.INTEGER
+      path: {
+        allowNull: false,
+        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,
@@ -57,18 +53,18 @@ module.exports = {
         type: Sequelize.DATE
       }
     })
-    await queryInterface.addIndex('menu_items', ['menuId'], {
-      name: 'menu_items_menuId_fk'
+    await queryInterface.addIndex('tickets', ['customerId'], {
+      name: 'tickets_customerId_fk'
     })
-    await queryInterface.addIndex('menu_items', ['localeSeoId'], {
-      name: 'menu_items_localeSeoId_fk'
+    await queryInterface.addIndex('tickets', ['saleId'], {
+      name: 'tickets_saleId_fk'
     })
-    await queryInterface.addIndex('menu_items', ['localeSeoSlugId'], {
-      name: 'menu_items_localeSeoSlugId_fk'
+    await queryInterface.addIndex('tickets', ['returnId'], {
+      name: 'tickets_returnId_fk'
     })
   },
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('menu_items')
+    await queryInterface.dropTable('tickets')
   }
 }

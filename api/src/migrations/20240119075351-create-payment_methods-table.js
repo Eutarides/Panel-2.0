@@ -2,20 +2,25 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('dial_codes', {
+    await queryInterface.createTable('payment_methods', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      countryId: {
-        allowNull: false,
-        type: Sequelize.INTEGER
-      },
-      dialCode: {
+      name: {
         allowNull: false,
         type: Sequelize.STRING
+      },
+      configuration: {
+        allowNull: false,
+        type: Sequelize.JSON
+      },
+      visible: {
+        allowNull: false,
+        defaultValue: 1,
+        type: Sequelize.BOOLEAN
       },
       createdAt: {
         allowNull: false,
@@ -32,6 +37,6 @@ module.exports = {
   },
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('dial_codes')
+    await queryInterface.dropTable('payment_methods')
   }
 }

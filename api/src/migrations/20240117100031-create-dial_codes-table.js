@@ -2,28 +2,24 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('product_category_relations', {
+    await queryInterface.createTable('dial_codes', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      productCategoryId: {
+      countryId: {
         allowNull: false,
         type: Sequelize.INTEGER,
         references: {
-          model: 'product_categories',
+          model: 'countries',
           key: 'id'
         }
       },
-      productId: {
+      dialCode: {
         allowNull: false,
-        type: Sequelize.INTEGER,
-        references: {
-          model: 'products',
-          key: 'id'
-        }
+        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,
@@ -37,15 +33,14 @@ module.exports = {
         type: Sequelize.DATE
       }
     })
-    await queryInterface.addIndex('product_category_relations', ['productCategoryId'], {
-      name: 'product_category_relations_productCategoryId_fk'
-    })
-    await queryInterface.addIndex('product_category_relations', ['productId'], {
-      name: 'product_category_relations_productId_fk'
+    await queryInterface.addIndex('dial_codes', ['countryId'], {
+      name: 'dial_codes_countryId_fk'
     })
   },
 
+  
+
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('product_category_relations')
+    await queryInterface.dropTable('dial_codes')
   }
 }

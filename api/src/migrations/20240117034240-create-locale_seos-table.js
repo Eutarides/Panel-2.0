@@ -2,56 +2,45 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('customers', {
+    await queryInterface.createTable('locale_seos', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      countryId: {
-        allowNull: false,
-        type: Sequelize.INTEGER
-      },
-      cityId: {
-        allowNull: false,
-        type: Sequelize.INTEGER
-      },
-      dialCodeId: {
-        allowNull: false,
-        type: Sequelize.INTEGER
-      },
-      postalCode: {
+      languageAlias: {
         allowNull: false,
         type: Sequelize.STRING
       },
-      address: {
+      url: {
         allowNull: false,
         type: Sequelize.STRING
       },
-      name: {
+      title: {
         allowNull: false,
         type: Sequelize.STRING
       },
-      surname: {
-        allowNull: false,
+      description: {
         type: Sequelize.STRING
       },
-      telephone: {
+      redirection: {
+        defaultValue: 0,
+        type: Sequelize.BOOLEAN
+      },
+      menu: {
+        defaultValue: 1,
+        type: Sequelize.BOOLEAN
+      },
+      changeFrequency: {
         type: Sequelize.STRING
       },
-      email: {
-        allowNull: false,
-        type: Sequelize.STRING,
-        unique:true
-      },
-      password: {
-        allowNull: false,
-        type: Sequelize.STRING
-      },
-      vat: {
-        allowNull: false,
-        type: Sequelize.STRING
+      priority: {
+        type: Sequelize.DECIMAL
+      }, 
+      sitemap: {
+        defaultValue: 1,
+        type: Sequelize.BOOLEAN
       },
       createdAt: {
         allowNull: false,
@@ -68,6 +57,6 @@ module.exports = {
   },
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('customers')
+    await queryInterface.dropTable('locale_seos')
   }
 }

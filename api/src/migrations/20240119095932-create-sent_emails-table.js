@@ -2,29 +2,29 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('product_category_relations', {
+    await queryInterface.createTable('sent_emails', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      productCategoryId: {
+      customerId: {
         allowNull: false,
         type: Sequelize.INTEGER,
         references: {
-          model: 'product_categories',
+          model: 'customers',
           key: 'id'
         }
       },
-      productId: {
+      emailId: {
         allowNull: false,
         type: Sequelize.INTEGER,
         references: {
-          model: 'products',
+          model: 'emails',
           key: 'id'
         }
-      },
+      },  
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
@@ -37,15 +37,15 @@ module.exports = {
         type: Sequelize.DATE
       }
     })
-    await queryInterface.addIndex('product_category_relations', ['productCategoryId'], {
-      name: 'product_category_relations_productCategoryId_fk'
+    await queryInterface.addIndex('sent_emails', ['customerId'], {
+      name: 'sent_emails_customerId_fk'
     })
-    await queryInterface.addIndex('product_category_relations', ['productId'], {
-      name: 'product_category_relations_productId_fk'
+    await queryInterface.addIndex('sent_emails', ['emailId'], {
+      name: 'sent_emails_emailId_fk'
     })
   },
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('product_category_relations')
+    await queryInterface.dropTable('sent_emails')
   }
 }

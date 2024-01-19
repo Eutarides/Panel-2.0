@@ -11,11 +11,19 @@ module.exports = {
       },
       productId: {
         allowNull: false,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'products',
+          key: 'id'
+        }
       },
       taxId: {
         allowNull: false,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'taxes',
+          key: 'id'
+        }
       },
       basePrice: {
         allowNull: false,
@@ -36,6 +44,12 @@ module.exports = {
       deletedAt: {
         type: Sequelize.DATE
       }
+    })
+    await queryInterface.addIndex('prices', ['productId'], {
+      name: 'prices_productId_fk'
+    })
+    await queryInterface.addIndex('prices', ['taxId'], {
+      name: 'prices_taxId_fk'
     })
   },
 

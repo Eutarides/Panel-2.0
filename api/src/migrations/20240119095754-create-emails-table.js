@@ -2,36 +2,20 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('taxes', {
+    await queryInterface.createTable('emails', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      countryId: {
-        allowNull: false,
-        type: Sequelize.INTEGER,
-        references: {
-          model: 'countries',
-          key: 'id'
-        }
-      },
-      type: {
+      subject: {
         allowNull: false,
         type: Sequelize.STRING
       },
-      rate: {
+      path: {
         allowNull: false,
-        type: Sequelize.INTEGER
-      },
-      multiplier: {
-        allowNull: false,
-        type: Sequelize.DECIMAL
-      },
-      current: {
-        defaultValue: 0,
-        type: Sequelize.BOOLEAN
+        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,
@@ -45,12 +29,9 @@ module.exports = {
         type: Sequelize.DATE
       }
     })
-    await queryInterface.addIndex('taxes', ['countryId'], {
-      name: 'taxes_countryId_fk'
-    })
   },
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('taxes')
+    await queryInterface.dropTable('emails')
   }
 }

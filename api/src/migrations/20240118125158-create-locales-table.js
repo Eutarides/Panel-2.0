@@ -19,7 +19,7 @@ module.exports = {
       },
       entityId: {
         allowNull: false,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       key: {
         allowNull: false,
