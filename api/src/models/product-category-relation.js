@@ -64,7 +64,8 @@ module.exports = function (sequelize, DataTypes) {
   });
 
   ProductCategoryRelation.associate = function (models) {
-
+    ProductCategoryRelation.belongsTo(models.Product, { as: 'product', foreignKey: 'productId' }),
+    ProductCategoryRelation.belongsTo(models.ProductCAtegory, { as: 'productCAtegory', foreignKey: 'productCategoryId' })
   }
 
   return ProductCategoryRelation;

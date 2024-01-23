@@ -109,7 +109,7 @@ module.exports = function (sequelize, DataTypes) {
   })
 
   Sale.associate = function (models) {
-
+    Sale.hasMany(models.Invoice, { as: 'invoices', foreignKey: 'saleId' })
   }
 
   return Sale

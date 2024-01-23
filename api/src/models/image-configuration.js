@@ -69,7 +69,7 @@ module.exports = function (sequelize, DataTypes) {
   });
 
   ImageConfiguration.associate = function (models) {
-
+    ImageConfiguration.hasOne(models.Image, { as: 'image', foreignKey: 'imageConfigurationId' })
   }
 
   return ImageConfiguration;

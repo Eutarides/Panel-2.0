@@ -68,7 +68,8 @@ module.exports = function (sequelize, DataTypes) {
   })
 
   Tax.associate = function (models) {
-
+    Tax.hasMany(models.Price, { as: 'prices', foreignKey: 'taxId' }),
+    Tax.hasMany(models.ReturnDetail, { as: 'returnDetails', foreignKey: 'taxId' })
   }
 
   return Tax
