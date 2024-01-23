@@ -43,12 +43,22 @@ module.exports = function (sequelize, DataTypes) {
         fields: [
           { name: 'id' }
         ]
+      },
+      {
+        name: 'cities_countryId_fk',
+        unique: true,
+        using: 'BTREE',
+        fields: [
+          { name: 'countryId' }
+        ]
       }
     ]
   });
 
   City.associate = function (models) {
-
+    City.belongsTo(models.Country, { as: 'country', foreignKey: 'countryId' }),
+    City.hasOne(models.Company, { as: 'company', foreignKey: 'cityId' }),
+    City.hasOne(models.Customer, { as: 'customer', foreignKey: 'cityId' })
   }
 
   return City;

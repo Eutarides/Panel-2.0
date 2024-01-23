@@ -1,32 +1,33 @@
 module.exports = function (sequelize, DataTypes) {
-  const ImageConfiguration = sequelize.define('ImageConfiguration', {
+  const ReturnError = sequelize.define('ReturnError', {
     id: {
       type: DataTypes.INTEGER,
-      autoIncrement: true,
       primaryKey: true,
+      autoIncrement: true,
       allowNull: false
     },
-    entity: {
-      type: DataTypes.STRING,
+    customerId: {
+      type: DataTypes.INTEGER,
       allowNull: false
     },
-    name: {
-      type: DataTypes.STRING,
+    returnId: {
+      type: DataTypes.INTEGER,
       allowNull: false
     },
-    mediaQuery: {
-      type: DataTypes.STRING,
+    paymentMethodId: {
+      type: DataTypes.INTEGER,
       allowNull: false
     },
-    widthPx: {
-      type: DataTypes.INTEGER
+    errorCode: {
+      type: DataTypes.INTEGER,
+      allowNull: false
     },
-    heightPx: {
-      type: DataTypes.INTEGER
+    errorMessage: {
+      type: DataTypes.STRING
     },
     createdAt: {
       type: DataTypes.DATE,
-      get() {
+      get () {
         return this.getDataValue('createdAt')
           ? this.getDataValue('createdAt').toISOString().split('T')[0]
           : null
@@ -34,15 +35,16 @@ module.exports = function (sequelize, DataTypes) {
     },
     updatedAt: {
       type: DataTypes.DATE,
-      get() {
+      get () {
         return this.getDataValue('updatedAt')
           ? this.getDataValue('updatedAt').toISOString().split('T')[0]
           : null
       }
     }
-  }, {
+  },
+  {
     sequelize,
-    tableName: 'image_configurations',
+    tableName: 'return_errors',
     timestamps: true,
     paranoid: true,
     indexes: [
@@ -55,22 +57,32 @@ module.exports = function (sequelize, DataTypes) {
         ]
       },
       {
-        name: 'image_configurations_entity_name_mediaQuery_index',
-        unique: true,
+        name: 'return_errors_customerId_fk',
         using: 'BTREE',
         fields: [
-          { name: 'entity' },
-          { name: 'name' },
-          { name: 'mediaQuery' },
+          { name: 'customerId' }
         ]
       },
-
+      {
+        name: 'return_errors_returnId_fk',
+        using: 'BTREE',
+        fields: [
+          { name: 'returnId' }
+        ]
+      },
+      {
+        name: 'return_errors_paymentMethodId_fk',
+        using: 'BTREE',
+        fields: [
+          { name: 'paymentMethodId' }
+        ]
+      }
     ]
-  });
+  })
 
-  ImageConfiguration.associate = function (models) {
+  ReturnError.associate = function (models) {
 
   }
 
-  return ImageConfiguration;
+  return ReturnError
 }

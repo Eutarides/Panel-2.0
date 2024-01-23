@@ -1,34 +1,43 @@
 module.exports = function (sequelize, DataTypes) {
-  const Locale = sequelize.define('Locale', {
+  const MenuItem = sequelize.define('MenuItem', {
     id: {
       type: DataTypes.INTEGER,
-      autoIncrement: true,
       primaryKey: true,
+      autoIncrement: true,
       allowNull: false
     },
-    languageAlias: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    entity: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    entityId: {
+    menuId: {
       type: DataTypes.INTEGER,
       allowNull: false
     },
-    key: {
+    localeSeoId: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
+    parent: {
+      type: DataTypes.INTEGER
+    },
+    name: {
       type: DataTypes.STRING,
       allowNull: false
     },
-    value: {
-      type: DataTypes.STRING,
+    description: {
+      type: DataTypes.STRING
+    },
+    customUrl: {
+      type: DataTypes.STRING
+    },
+    private: {
+      type: DataTypes.BOOLEAN,
       allowNull: false
+    },
+    order: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0
     },
     createdAt: {
       type: DataTypes.DATE,
-      get() {
+      get () {
         return this.getDataValue('createdAt')
           ? this.getDataValue('createdAt').toISOString().split('T')[0]
           : null
@@ -36,15 +45,16 @@ module.exports = function (sequelize, DataTypes) {
     },
     updatedAt: {
       type: DataTypes.DATE,
-      get() {
+      get () {
         return this.getDataValue('updatedAt')
           ? this.getDataValue('updatedAt').toISOString().split('T')[0]
           : null
       }
     }
-  }, {
+  },
+  {
     sequelize,
-    tableName: 'locales',
+    tableName: 'menu_items',
     timestamps: true,
     paranoid: true,
     indexes: [
@@ -57,22 +67,32 @@ module.exports = function (sequelize, DataTypes) {
         ]
       },
       {
-        name: 'locales_languageAlias_entity_entityId_key_index',
-        unique: true,
+        name: 'menu_items_menuId_fk',
         using: 'BTREE',
         fields: [
-          { name: 'languageAlias' },
-          { name: 'entity' },
-          { name: 'entityId' },
-          { name: 'key' }
+          { name: 'menuId' }
+        ]
+      },
+      {
+        name: 'menu_items_localeSeoId_fk',
+        using: 'BTREE',
+        fields: [
+          { name: 'localeSeoId' }
+        ]
+      },
+      {
+        name: 'menu_items_localeSeoSlugId_fk',
+        using: 'BTREE',
+        fields: [
+          { name: 'localeSeoSlugId' }
         ]
       }
     ]
-  });
+  })
 
-  Locale.associate = function (models) {
-    Locale.hasMany(models.CartDetail, { as: 'cartDetails', foreignKey: 'localeId' })
+  MenuItem.associate = function (models) {
+
   }
 
-  return Locale;
+  return MenuItem
 }

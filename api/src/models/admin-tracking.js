@@ -1,22 +1,30 @@
 module.exports = function (sequelize, DataTypes) {
-  const DialCode = sequelize.define('DialCode', {
+  const AdminTracking = sequelize.define('AdminTracking', {
     id: {
       type: DataTypes.INTEGER,
-      autoIncrement: true,
       primaryKey: true,
+      autoIncrement: true,
       allowNull: false
     },
-    countryId: {
+    userId: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: false
     },
-    dialCode: {
+    entity: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    entityId: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
+    action: {
       type: DataTypes.STRING,
       allowNull: false
     },
     createdAt: {
       type: DataTypes.DATE,
-      get() {
+      get () {
         return this.getDataValue('createdAt')
           ? this.getDataValue('createdAt').toISOString().split('T')[0]
           : null
@@ -24,7 +32,7 @@ module.exports = function (sequelize, DataTypes) {
     },
     updatedAt: {
       type: DataTypes.DATE,
-      get() {
+      get () {
         return this.getDataValue('updatedAt')
           ? this.getDataValue('updatedAt').toISOString().split('T')[0]
           : null
@@ -32,7 +40,7 @@ module.exports = function (sequelize, DataTypes) {
     }
   }, {
     sequelize,
-    tableName: 'dial_codes',
+    tableName: 'admin_trackings',
     timestamps: true,
     paranoid: true,
     indexes: [
@@ -45,21 +53,18 @@ module.exports = function (sequelize, DataTypes) {
         ]
       },
       {
-        name: 'dial_codes_countryId_fk',
-        unique: true,
+        name: 'admin_trackings_userId_fk',
         using: 'BTREE',
         fields: [
-          { name: 'countryId' }
+          { name: 'userId' }
         ]
-      },
+      }
     ]
-  });
+  })
 
-  DialCode.associate = function (models) {
-    DialCode.belongsTo(models.Country, { as: 'country', foreignKey: 'countryId' })
-    DialCode.hasOne(models.Company, { as: 'company', foreignKey: 'dialCodeId' }),
-    DialCode.hasOne(models.Customer, { as: 'customer', foreignKey: 'dialCodeId' })
+  AdminTracking.associate = function (models) {
+    AdminTracking.belongsTo(models.User, { as: 'user', foreignKey: 'userId' })
   }
 
-  return DialCode;
+  return AdminTracking
 }

@@ -57,7 +57,10 @@ module.exports = function (sequelize, DataTypes) {
   });
 
   Country.associate = function (models) {
-
+    Country.hasOne(models.City, { as: 'city', foreignKey: 'countryId' }),
+    Country.hasOne(models.Company, { as: 'company', foreignKey: 'countryId' }),
+    Country.hasOne(models.Customer, { as: 'customer', foreignKey: 'countryId' }),
+    Country.hasOne(models.DialCode, { as: 'dialCode', foreignKey: 'countryId' })
   }
 
   return Country;

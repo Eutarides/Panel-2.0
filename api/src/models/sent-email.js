@@ -1,22 +1,22 @@
 module.exports = function (sequelize, DataTypes) {
-  const DialCode = sequelize.define('DialCode', {
+  const SentEmail = sequelize.define('SentEmail', {
     id: {
       type: DataTypes.INTEGER,
-      autoIncrement: true,
       primaryKey: true,
+      autoIncrement: true,
       allowNull: false
     },
-    countryId: {
+    customerId: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: false
     },
-    dialCode: {
-      type: DataTypes.STRING,
+    emailId: {
+      type: DataTypes.INTEGER,
       allowNull: false
     },
     createdAt: {
       type: DataTypes.DATE,
-      get() {
+      get () {
         return this.getDataValue('createdAt')
           ? this.getDataValue('createdAt').toISOString().split('T')[0]
           : null
@@ -24,15 +24,16 @@ module.exports = function (sequelize, DataTypes) {
     },
     updatedAt: {
       type: DataTypes.DATE,
-      get() {
+      get () {
         return this.getDataValue('updatedAt')
           ? this.getDataValue('updatedAt').toISOString().split('T')[0]
           : null
       }
     }
-  }, {
+  },
+  {
     sequelize,
-    tableName: 'dial_codes',
+    tableName: 'sent_emails',
     timestamps: true,
     paranoid: true,
     indexes: [
@@ -45,21 +46,25 @@ module.exports = function (sequelize, DataTypes) {
         ]
       },
       {
-        name: 'dial_codes_countryId_fk',
-        unique: true,
+        name: 'sent_emails_customerId_fk',
         using: 'BTREE',
         fields: [
-          { name: 'countryId' }
+          { name: 'customerId' }
         ]
       },
+      {
+        name: 'sent_emails_emailId_fk',
+        using: 'BTREE',
+        fields: [
+          { name: 'emailId' }
+        ]
+      }
     ]
-  });
+  })
 
-  DialCode.associate = function (models) {
-    DialCode.belongsTo(models.Country, { as: 'country', foreignKey: 'countryId' })
-    DialCode.hasOne(models.Company, { as: 'company', foreignKey: 'dialCodeId' }),
-    DialCode.hasOne(models.Customer, { as: 'customer', foreignKey: 'dialCodeId' })
+  SentEmail.associate = function (models) {
+
   }
 
-  return DialCode;
+  return SentEmail
 }

@@ -1,22 +1,33 @@
 module.exports = function (sequelize, DataTypes) {
-  const DialCode = sequelize.define('DialCode', {
+  const SaleError = sequelize.define('SaleError', {
     id: {
       type: DataTypes.INTEGER,
-      autoIncrement: true,
       primaryKey: true,
+      autoIncrement: true,
       allowNull: false
     },
-    countryId: {
+    customerId: {
       type: DataTypes.INTEGER,
-      allowNull: false,
-    },
-    dialCode: {
-      type: DataTypes.STRING,
       allowNull: false
+    },
+    cartId: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
+    paymentMethodId: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
+    errorCode: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
+    errorMessage: {
+      type: DataTypes.STRING
     },
     createdAt: {
       type: DataTypes.DATE,
-      get() {
+      get () {
         return this.getDataValue('createdAt')
           ? this.getDataValue('createdAt').toISOString().split('T')[0]
           : null
@@ -24,15 +35,16 @@ module.exports = function (sequelize, DataTypes) {
     },
     updatedAt: {
       type: DataTypes.DATE,
-      get() {
+      get () {
         return this.getDataValue('updatedAt')
           ? this.getDataValue('updatedAt').toISOString().split('T')[0]
           : null
       }
     }
-  }, {
+  },
+  {
     sequelize,
-    tableName: 'dial_codes',
+    tableName: 'sale_errors',
     timestamps: true,
     paranoid: true,
     indexes: [
@@ -45,21 +57,32 @@ module.exports = function (sequelize, DataTypes) {
         ]
       },
       {
-        name: 'dial_codes_countryId_fk',
-        unique: true,
+        name: 'sale_errors_paymentMethodId_fk',
         using: 'BTREE',
         fields: [
-          { name: 'countryId' }
+          { name: 'paymentMethodId' }
         ]
       },
+      {
+        name: 'sale_errors_customerId_fk',
+        using: 'BTREE',
+        fields: [
+          { name: 'customerId' }
+        ]
+      },
+      {
+        name: 'sale_errors_cartId_fk',
+        using: 'BTREE',
+        fields: [
+          { name: 'cartId' }
+        ]
+      }
     ]
-  });
+  })
 
-  DialCode.associate = function (models) {
-    DialCode.belongsTo(models.Country, { as: 'country', foreignKey: 'countryId' })
-    DialCode.hasOne(models.Company, { as: 'company', foreignKey: 'dialCodeId' }),
-    DialCode.hasOne(models.Customer, { as: 'customer', foreignKey: 'dialCodeId' })
+  SaleError.associate = function (models) {
+
   }
 
-  return DialCode;
+  return SaleError
 }

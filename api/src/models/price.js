@@ -1,22 +1,28 @@
 module.exports = function (sequelize, DataTypes) {
-  const DialCode = sequelize.define('DialCode', {
+  const Price = sequelize.define('Price', {
     id: {
       type: DataTypes.INTEGER,
-      autoIncrement: true,
       primaryKey: true,
+      autoIncrement: true,
       allowNull: false
     },
-    countryId: {
+    productId: {
       type: DataTypes.INTEGER,
-      allowNull: false,
-    },
-    dialCode: {
-      type: DataTypes.STRING,
       allowNull: false
+    },
+    taxId: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
+    basePrice: {
+      type: DataTypes.DECIMAL
+    },
+    current: {
+      type: DataTypes.BOOLEAN
     },
     createdAt: {
       type: DataTypes.DATE,
-      get() {
+      get () {
         return this.getDataValue('createdAt')
           ? this.getDataValue('createdAt').toISOString().split('T')[0]
           : null
@@ -24,7 +30,7 @@ module.exports = function (sequelize, DataTypes) {
     },
     updatedAt: {
       type: DataTypes.DATE,
-      get() {
+      get () {
         return this.getDataValue('updatedAt')
           ? this.getDataValue('updatedAt').toISOString().split('T')[0]
           : null
@@ -32,7 +38,7 @@ module.exports = function (sequelize, DataTypes) {
     }
   }, {
     sequelize,
-    tableName: 'dial_codes',
+    tableName: 'prices',
     timestamps: true,
     paranoid: true,
     indexes: [
@@ -45,21 +51,25 @@ module.exports = function (sequelize, DataTypes) {
         ]
       },
       {
-        name: 'dial_codes_countryId_fk',
-        unique: true,
+        name: 'prices_productId_fk',
         using: 'BTREE',
         fields: [
-          { name: 'countryId' }
+          { name: 'productId' }
         ]
       },
+      {
+        name: 'prices_taxId_fk',
+        using: 'BTREE',
+        fields: [
+          { name: 'taxId' }
+        ]
+      }
     ]
-  });
+  })
 
-  DialCode.associate = function (models) {
-    DialCode.belongsTo(models.Country, { as: 'country', foreignKey: 'countryId' })
-    DialCode.hasOne(models.Company, { as: 'company', foreignKey: 'dialCodeId' }),
-    DialCode.hasOne(models.Customer, { as: 'customer', foreignKey: 'dialCodeId' })
+  Price.associate = function (models) {
+    Price.hasMany(models.CartDetail, { as: 'cartDetails', foreignKey: 'priceId' })
   }
 
-  return DialCode;
+  return Price
 }

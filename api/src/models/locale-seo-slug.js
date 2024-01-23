@@ -1,32 +1,47 @@
 module.exports = function (sequelize, DataTypes) {
-  const ImageConfiguration = sequelize.define('ImageConfiguration', {
+  const LocaleSeoSlug = sequelize.define('LocaleSeoSlug', {
     id: {
       type: DataTypes.INTEGER,
-      autoIncrement: true,
       primaryKey: true,
+      autoIncrement: true,
       allowNull: false
     },
-    entity: {
+    localeSeoId: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
+    languageAlias: {
       type: DataTypes.STRING,
       allowNull: false
     },
-    name: {
+    relParent: {
       type: DataTypes.STRING,
       allowNull: false
     },
-    mediaQuery: {
+    slug: {
       type: DataTypes.STRING,
       allowNull: false
     },
-    widthPx: {
-      type: DataTypes.INTEGER
+    key: {
+      type: DataTypes.INTEGER,
+      allowNull: false
     },
-    heightPx: {
-      type: DataTypes.INTEGER
+    parentSlug: {
+      type: DataTypes.STRING
+    },
+    title: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    description: {
+      type: DataTypes.STRING
+    },
+    keywords: {
+      type: DataTypes.STRING
     },
     createdAt: {
       type: DataTypes.DATE,
-      get() {
+      get () {
         return this.getDataValue('createdAt')
           ? this.getDataValue('createdAt').toISOString().split('T')[0]
           : null
@@ -34,15 +49,16 @@ module.exports = function (sequelize, DataTypes) {
     },
     updatedAt: {
       type: DataTypes.DATE,
-      get() {
+      get () {
         return this.getDataValue('updatedAt')
           ? this.getDataValue('updatedAt').toISOString().split('T')[0]
           : null
       }
     }
-  }, {
+  },
+  {
     sequelize,
-    tableName: 'image_configurations',
+    tableName: 'locale_seo_slugs',
     timestamps: true,
     paranoid: true,
     indexes: [
@@ -55,22 +71,18 @@ module.exports = function (sequelize, DataTypes) {
         ]
       },
       {
-        name: 'image_configurations_entity_name_mediaQuery_index',
-        unique: true,
+        name: 'locale_seo_slugs_localeSeoId_fk',
         using: 'BTREE',
         fields: [
-          { name: 'entity' },
-          { name: 'name' },
-          { name: 'mediaQuery' },
+          { name: 'localeSeoId' }
         ]
-      },
-
+      }
     ]
-  });
+  })
 
-  ImageConfiguration.associate = function (models) {
-
+  LocaleSeoSlug.associate = function (models) {
+    LocaleSeoSlug.hasMany(models.CustomerTracking, { as: 'customerTrackings', foreignKey: 'localeSeoSlugId' })
   }
 
-  return ImageConfiguration;
+  return LocaleSeoSlug
 }

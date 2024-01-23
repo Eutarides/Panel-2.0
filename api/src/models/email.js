@@ -1,22 +1,22 @@
 module.exports = function (sequelize, DataTypes) {
-  const DialCode = sequelize.define('DialCode', {
+  const Email = sequelize.define('Email', {
     id: {
       type: DataTypes.INTEGER,
-      autoIncrement: true,
       primaryKey: true,
+      autoIncrement: true,
       allowNull: false
     },
-    countryId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
+    subject: {
+      type: DataTypes.STRING,
+      allowNull: false
     },
-    dialCode: {
+    path: {
       type: DataTypes.STRING,
       allowNull: false
     },
     createdAt: {
       type: DataTypes.DATE,
-      get() {
+      get () {
         return this.getDataValue('createdAt')
           ? this.getDataValue('createdAt').toISOString().split('T')[0]
           : null
@@ -24,7 +24,7 @@ module.exports = function (sequelize, DataTypes) {
     },
     updatedAt: {
       type: DataTypes.DATE,
-      get() {
+      get () {
         return this.getDataValue('updatedAt')
           ? this.getDataValue('updatedAt').toISOString().split('T')[0]
           : null
@@ -32,7 +32,7 @@ module.exports = function (sequelize, DataTypes) {
     }
   }, {
     sequelize,
-    tableName: 'dial_codes',
+    tableName: 'emails',
     timestamps: true,
     paranoid: true,
     indexes: [
@@ -43,23 +43,14 @@ module.exports = function (sequelize, DataTypes) {
         fields: [
           { name: 'id' }
         ]
-      },
-      {
-        name: 'dial_codes_countryId_fk',
-        unique: true,
-        using: 'BTREE',
-        fields: [
-          { name: 'countryId' }
-        ]
-      },
+      }
     ]
-  });
 
-  DialCode.associate = function (models) {
-    DialCode.belongsTo(models.Country, { as: 'country', foreignKey: 'countryId' })
-    DialCode.hasOne(models.Company, { as: 'company', foreignKey: 'dialCodeId' }),
-    DialCode.hasOne(models.Customer, { as: 'customer', foreignKey: 'dialCodeId' })
+  })
+
+  Email.associate = function (models) {
+    User.hasMany(models.EmailError, { as: 'emailErrors', foreignKey: 'emailId' })
   }
 
-  return DialCode;
+  return Email
 }

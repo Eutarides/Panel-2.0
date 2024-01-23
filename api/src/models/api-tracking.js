@@ -1,33 +1,59 @@
 module.exports = function (sequelize, DataTypes) {
-  const Contact = sequelize.define('Contact', {
+  const ApiTracking = sequelize.define('ApiTracking', {
     id: {
       type: DataTypes.INTEGER,
-      autoIncrement: true,
       primaryKey: true,
+      autoIncrement: true,
       allowNull: false
+    },
+    customerId: {
+      type: DataTypes.INTEGER
     },
     fingerprintId: {
       type: DataTypes.INTEGER
     },
-    name: {
+    ip: {
       type: DataTypes.STRING,
       allowNull: false
     },
-    email: {
+    isRobot: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false
+    },
+    resource: {
       type: DataTypes.STRING,
       allowNull: false
     },
-    subject: {
-      type: DataTypes.STRING,
+    resourceElement: {
+      type: DataTypes.INTEGER
+    },
+    method: {
+      allowNull: false,
+      type: DataTypes.STRING
+    },
+    httpCode: {
+      type: DataTypes.INTEGER,
       allowNull: false
     },
     message: {
       type: DataTypes.TEXT,
+      allowNull: true
+    },
+    startTime: {
+      type: DataTypes.DOUBLE,
+      allowNull: false
+    },
+    endTime: {
+      type: DataTypes.DOUBLE,
+      allowNull: false
+    },
+    latencyMS: {
+      type: DataTypes.DOUBLE,
       allowNull: false
     },
     createdAt: {
       type: DataTypes.DATE,
-      get() {
+      get () {
         return this.getDataValue('createdAt')
           ? this.getDataValue('createdAt').toISOString().split('T')[0]
           : null
@@ -35,7 +61,7 @@ module.exports = function (sequelize, DataTypes) {
     },
     updatedAt: {
       type: DataTypes.DATE,
-      get() {
+      get () {
         return this.getDataValue('updatedAt')
           ? this.getDataValue('updatedAt').toISOString().split('T')[0]
           : null
@@ -43,7 +69,7 @@ module.exports = function (sequelize, DataTypes) {
     }
   }, {
     sequelize,
-    tableName: 'contacts',
+    tableName: 'api_trackings',
     timestamps: true,
     paranoid: true,
     indexes: [
@@ -56,27 +82,26 @@ module.exports = function (sequelize, DataTypes) {
         ]
       },
       {
-        name: 'contacts_fingerprintId_fk',
-        unique: true,
+        name: 'api_trackings_customerId_fk',
+        using: 'BTREE',
+        fields: [
+          { name: 'customerId' }
+        ]
+      },
+      {
+        name: 'api_trackings_fingerprintId_fk',
         using: 'BTREE',
         fields: [
           { name: 'fingerprintId' }
         ]
-      },
-      {
-        name: 'contacts_email',
-        unique: true,
-        using: 'BTREE',
-        fields: [
-          { name: 'email' }
-        ]
       }
     ]
-  });
+  })
 
-  Contact.associate = function (models) {
-    Contact.belongsTo(models.Fingerprint, { as: 'fingerprint', foreignKey: 'fingerprintId' })
+  ApiTracking.associate = function (models) {
+    ApiTracking.belongsTo(models.Customer, { as: 'customer', foreignKey: 'customerId' }),
+    ApiTracking.belongsTo(models.Fingerprint, { as: 'fingerprint', foreignKey: 'fingerprintId' })
   }
 
-  return Contact;
+  return ApiTracking
 }

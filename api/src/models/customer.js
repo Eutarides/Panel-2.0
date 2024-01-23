@@ -82,12 +82,52 @@ module.exports = function (sequelize, DataTypes) {
         fields: [
           { name: 'id' }
         ]
+      },
+      {
+        name: 'customers_countryId_fk',
+        unique: true,
+        using: 'BTREE',
+        fields: [
+          { name: 'countryId' }
+        ]
+      },
+      {
+        name: 'customers_cityId_fk',
+        unique: true,
+        using: 'BTREE',
+        fields: [
+          { name: 'cityId' }
+        ]
+      },
+      {
+        name: 'customers_dialCodeId_fk',
+        unique: true,
+        using: 'BTREE',
+        fields: [
+          { name: 'dialCodeId' }
+        ]
+      },
+      {
+        name: 'customers_email',
+        unique: true,
+        using: 'BTREE',
+        fields: [
+          { name: 'email' }
+        ]
       }
+      
     ]
   });
 
   Customer.associate = function (models) {
-
+    Customer.belongsTo(models.Country, { as: 'country', foreignKey: 'countryId' }),
+    Customer.belongsTo(models.City, { as: 'city', foreignKey: 'cityId' }),
+    Customer.belongsTo(models.DialCode, { as: 'dialCode', foreignKey: 'dialCodeId' }),
+    Customer.hasMany(models.ApiTracking, { as: 'apiTrackings', foreignKey: 'customerId' }),
+    Customer.hasMany(models.Cart, { as: 'carts', foreignKey: 'customerId' }),
+    Customer.hasMany(models.CustomerTracking, { as: 'customerTrackings', foreignKey: 'customerId' }),
+    Customer.hasMany(models.EmailError, { as: 'emailErrors', foreignKey: 'customerId' }),
+    Customer.hasOne(models.Fingerprint, { as: 'fingerprint', foreignKey: 'customerId' })
   }
 
   return Customer;

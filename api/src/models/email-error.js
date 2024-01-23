@@ -1,22 +1,26 @@
 module.exports = function (sequelize, DataTypes) {
-  const DialCode = sequelize.define('DialCode', {
+  const EmailError = sequelize.define('EmailError', {
     id: {
       type: DataTypes.INTEGER,
-      autoIncrement: true,
       primaryKey: true,
+      autoIncrement: true,
       allowNull: false
     },
-    countryId: {
+    customerId: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: false
     },
-    dialCode: {
-      type: DataTypes.STRING,
+    emailId: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
+    error: {
+      type: DataTypes.TEXT,
       allowNull: false
     },
     createdAt: {
       type: DataTypes.DATE,
-      get() {
+      get () {
         return this.getDataValue('createdAt')
           ? this.getDataValue('createdAt').toISOString().split('T')[0]
           : null
@@ -24,7 +28,7 @@ module.exports = function (sequelize, DataTypes) {
     },
     updatedAt: {
       type: DataTypes.DATE,
-      get() {
+      get () {
         return this.getDataValue('updatedAt')
           ? this.getDataValue('updatedAt').toISOString().split('T')[0]
           : null
@@ -32,7 +36,7 @@ module.exports = function (sequelize, DataTypes) {
     }
   }, {
     sequelize,
-    tableName: 'dial_codes',
+    tableName: 'email_errors',
     timestamps: true,
     paranoid: true,
     indexes: [
@@ -45,21 +49,27 @@ module.exports = function (sequelize, DataTypes) {
         ]
       },
       {
-        name: 'dial_codes_countryId_fk',
-        unique: true,
+        name: 'email_errors_customerId_fk',
         using: 'BTREE',
         fields: [
-          { name: 'countryId' }
+          { name: 'customerId' }
         ]
       },
+      {
+        name: 'email_errors_emailId_fk',
+        using: 'BTREE',
+        fields: [
+          { name: 'emailId' }
+        ]
+      }
     ]
-  });
 
-  DialCode.associate = function (models) {
-    DialCode.belongsTo(models.Country, { as: 'country', foreignKey: 'countryId' })
-    DialCode.hasOne(models.Company, { as: 'company', foreignKey: 'dialCodeId' }),
-    DialCode.hasOne(models.Customer, { as: 'customer', foreignKey: 'dialCodeId' })
+  })
+
+  EmailError.associate = function (models) {
+    EmailError.belongsTo(models.Customer, { as: 'customer', foreignKey: 'customerId' }),
+    EmailError.belongsTo(models.Email, { as: 'email', foreignKey: 'emailId' })
   }
 
-  return DialCode;
+  return EmailError
 }

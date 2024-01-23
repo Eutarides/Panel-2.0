@@ -1,16 +1,38 @@
 module.exports = function (sequelize, DataTypes) {
-  const ImageConfiguration = sequelize.define('ImageConfiguration', {
+  const Image = sequelize.define('Image', {
     id: {
       type: DataTypes.INTEGER,
-      autoIncrement: true,
       primaryKey: true,
+      autoIncrement: true,
       allowNull: false
+    },
+    imageConfigurationId: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
+    entityId: {
+      type: DataTypes.INTEGER
     },
     entity: {
       type: DataTypes.STRING,
       allowNull: false
     },
     name: {
+      type: DataTypes.STRING
+    },
+    originalFilename: {
+      type: DataTypes.STRING
+    },
+    resizedFilename: {
+      type: DataTypes.STRING
+    },
+    title: {
+      type: DataTypes.STRING
+    },
+    alt: {
+      type: DataTypes.STRING
+    },
+    languageAlias: {
       type: DataTypes.STRING,
       allowNull: false
     },
@@ -18,15 +40,13 @@ module.exports = function (sequelize, DataTypes) {
       type: DataTypes.STRING,
       allowNull: false
     },
-    widthPx: {
-      type: DataTypes.INTEGER
-    },
-    heightPx: {
-      type: DataTypes.INTEGER
+    latencyMs: {
+      type: DataTypes.INTEGER,
+      allowNull: false
     },
     createdAt: {
       type: DataTypes.DATE,
-      get() {
+      get () {
         return this.getDataValue('createdAt')
           ? this.getDataValue('createdAt').toISOString().split('T')[0]
           : null
@@ -34,15 +54,16 @@ module.exports = function (sequelize, DataTypes) {
     },
     updatedAt: {
       type: DataTypes.DATE,
-      get() {
+      get () {
         return this.getDataValue('updatedAt')
           ? this.getDataValue('updatedAt').toISOString().split('T')[0]
           : null
       }
     }
-  }, {
+  },
+  {
     sequelize,
-    tableName: 'image_configurations',
+    tableName: 'images',
     timestamps: true,
     paranoid: true,
     indexes: [
@@ -55,22 +76,27 @@ module.exports = function (sequelize, DataTypes) {
         ]
       },
       {
-        name: 'image_configurations_entity_name_mediaQuery_index',
-        unique: true,
+        name: 'images_imageConfigurationId_fk',
         using: 'BTREE',
         fields: [
-          { name: 'entity' },
-          { name: 'name' },
-          { name: 'mediaQuery' },
+          { name: 'imageConfigurationId' }
         ]
       },
-
+      {
+        name: 'images_entityId_entity_mediaQuery_index',
+        using: 'BTREE',
+        fields: [
+          { name: 'entityId' },
+          { name: 'entity' },
+          { name: 'mediaQuery' }
+        ]
+      }
     ]
-  });
+  })
 
-  ImageConfiguration.associate = function (models) {
+  Image.associate = function (models) {
 
   }
 
-  return ImageConfiguration;
+  return Image
 }

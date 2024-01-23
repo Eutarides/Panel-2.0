@@ -1,22 +1,34 @@
 module.exports = function (sequelize, DataTypes) {
-  const DialCode = sequelize.define('DialCode', {
+  const LocaleSeoRedirect = sequelize.define('LocaleSeoRedirect', {
     id: {
       type: DataTypes.INTEGER,
-      autoIncrement: true,
       primaryKey: true,
+      autoIncrement: true,
       allowNull: false
     },
-    countryId: {
+    localeSeoId: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: false
     },
-    dialCode: {
+    languageAlias: {
       type: DataTypes.STRING,
       allowNull: false
     },
+    group: {
+      type: DataTypes.STRING
+    },
+    key: {
+      type: DataTypes.STRING
+    },
+    subdomain: {
+      type: DataTypes.STRING
+    },
+    oldUrl: {
+      type: DataTypes.STRING
+    },
     createdAt: {
       type: DataTypes.DATE,
-      get() {
+      get () {
         return this.getDataValue('createdAt')
           ? this.getDataValue('createdAt').toISOString().split('T')[0]
           : null
@@ -24,15 +36,16 @@ module.exports = function (sequelize, DataTypes) {
     },
     updatedAt: {
       type: DataTypes.DATE,
-      get() {
+      get () {
         return this.getDataValue('updatedAt')
           ? this.getDataValue('updatedAt').toISOString().split('T')[0]
           : null
       }
     }
-  }, {
+  },
+  {
     sequelize,
-    tableName: 'dial_codes',
+    tableName: 'locale_seo_redirects',
     timestamps: true,
     paranoid: true,
     indexes: [
@@ -45,21 +58,18 @@ module.exports = function (sequelize, DataTypes) {
         ]
       },
       {
-        name: 'dial_codes_countryId_fk',
-        unique: true,
+        name: 'locale_seo_redirects_localeSeoId_fk',
         using: 'BTREE',
         fields: [
-          { name: 'countryId' }
+          { name: 'localeSeoId' }
         ]
-      },
+      }
     ]
-  });
+  })
 
-  DialCode.associate = function (models) {
-    DialCode.belongsTo(models.Country, { as: 'country', foreignKey: 'countryId' })
-    DialCode.hasOne(models.Company, { as: 'company', foreignKey: 'dialCodeId' }),
-    DialCode.hasOne(models.Customer, { as: 'customer', foreignKey: 'dialCodeId' })
+  LocaleSeoRedirect.associate = function (models) {
+
   }
 
-  return DialCode;
+  return LocaleSeoRedirect
 }

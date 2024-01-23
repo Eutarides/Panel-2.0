@@ -1,49 +1,54 @@
 module.exports = function (sequelize, DataTypes) {
-  const Fingerprint = sequelize.define('Fingerprint', {
+  const Sale = sequelize.define('Sale', {
     id: {
       type: DataTypes.INTEGER,
-      autoIncrement: true,
       primaryKey: true,
+      autoIncrement: true,
+      allowNull: false
+    },
+    cartId: {
+      type: DataTypes.INTEGER,
       allowNull: false
     },
     customerId: {
-      type: DataTypes.INTEGER
-    },
-    cityId: {
       type: DataTypes.INTEGER,
       allowNull: false
     },
-    fingerprint: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    browser: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    browserVersion: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    os: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    osVersion: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    screenHeight: {
+    paymentMethodId: {
       type: DataTypes.INTEGER,
       allowNull: false
     },
-    screenWidth: {
+    couponId: {
       type: DataTypes.INTEGER,
+      allowNull: false
+    },
+    reference: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    totalPrice: {
+      type: DataTypes.DECIMAL(10, 2),
+      allowNull: false
+    },
+    totalBasePrice: {
+      type: DataTypes.DECIMAL(10, 2),
+      allowNull: false
+    },
+    totalTaxPrice: {
+      type: DataTypes.DECIMAL(10, 2),
+      allowNull: false
+    },
+    saleDate: {
+      type: DataTypes.DATEONLY,
+      allowNull: false
+    },
+    saleTime: {
+      type: DataTypes.TIME,
       allowNull: false
     },
     createdAt: {
       type: DataTypes.DATE,
-      get() {
+      get () {
         return this.getDataValue('createdAt')
           ? this.getDataValue('createdAt').toISOString().split('T')[0]
           : null
@@ -51,15 +56,16 @@ module.exports = function (sequelize, DataTypes) {
     },
     updatedAt: {
       type: DataTypes.DATE,
-      get() {
+      get () {
         return this.getDataValue('updatedAt')
           ? this.getDataValue('updatedAt').toISOString().split('T')[0]
           : null
       }
     }
-  }, {
+  },
+  {
     sequelize,
-    tableName: 'fingerprints',
+    tableName: 'sales',
     timestamps: true,
     paranoid: true,
     indexes: [
@@ -72,31 +78,39 @@ module.exports = function (sequelize, DataTypes) {
         ]
       },
       {
-        name: 'fingerprints_customerId_fk',
-        unique: true,
+        name: 'sales_cartId_fk',
+        using: 'BTREE',
+        fields: [
+          { name: 'cartId' }
+        ]
+      },
+      {
+        name: 'sales_customerId_fk',
         using: 'BTREE',
         fields: [
           { name: 'customerId' }
         ]
       },
       {
-        name: 'fingerprints_cityId_fk',
-        unique: true,
+        name: 'sales_paymentMethodId_fk',
         using: 'BTREE',
         fields: [
-          { name: 'cityId' }
+          { name: 'paymentMethodId' }
         ]
       },
+      {
+        name: 'sales_couponId_fk',
+        using: 'BTREE',
+        fields: [
+          { name: 'couponId' }
+        ]
+      }
     ]
-  });
+  })
 
-  Fingerprint.associate = function (models) {
-    Fingerprint.belongsTo(models.Customer, { as: 'customer', foreignKey: 'customerId' })
-    Fingerprint.hasMany(models.ApiTracking, { as: 'apiTrackings', foreignKey: 'fingerprintId' }),
-    Fingerprint.hasOne(models.Cart, { as: 'cart', foreignKey: 'fingerprintId' }),
-    Fingerprint.hasMany(models.Contact, { as: 'contacts', foreignKey: 'fingerprintId' }),
-    Fingerprint.hasMany(models.CustomerTracking, { as: 'customerTrackings', foreignKey: 'fingerprintId' })
+  Sale.associate = function (models) {
+
   }
 
-  return Fingerprint;
+  return Sale
 }
