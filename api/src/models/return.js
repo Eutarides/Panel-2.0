@@ -98,8 +98,13 @@ module.exports = function (sequelize, DataTypes) {
   })
 
   Return.associate = function (models) {
+    Return.belongsTo(models.Sale, { as: 'sale', foreignKey: 'saleId' }),
+    Return.belongsTo(models.Customer, { as: 'customer', foreignKey: 'customerId' }),
+    Return.belongsTo(models.PaymentMethod, { as: 'paymentMethod', foreignKey: 'paymentMethodId' }),
     Return.hasMany(models.Invoice, { as: 'invoices', foreignKey: 'returnId' }),
-    Return.hasMany(models.ReturnDetail, { as: 'returnDetails', foreignKey: 'returnDetailId' })
+    Return.hasMany(models.ReturnDetail, { as: 'returnDetails', foreignKey: 'returnId' }),
+    Return.hasMany(models.ReturnError, { as: 'returnErrors', foreignKey: 'returnId' }),
+    Return.hasOne(models.Ticket, { as: 'ticket', foreignKey: 'returnId' })
   }
 
   return Return

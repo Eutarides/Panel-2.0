@@ -53,7 +53,10 @@ module.exports = function (sequelize, DataTypes) {
   });
 
   PaymentMethod.associate = function (models) {
-
+    PaymentMethod.hasMany(models.ReturnError, { as: 'returnErrors', foreignKey: 'paymentMethodId' }),
+    PaymentMethod.hasMany(models.Return, { as: 'returns', foreignKey: 'paymentMethodId' }),
+    PaymentMethod.hasMany(models.SaleError, { as: 'saleErrors', foreignKey: 'paymentMethodId' }),
+    PaymentMethod.hasOne(models.Sale, { as: 'sale', foreignKey: 'paymentMethodId' })
   }
 
   return PaymentMethod;

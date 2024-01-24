@@ -81,7 +81,9 @@ module.exports = function (sequelize, DataTypes) {
   })
 
   SaleError.associate = function (models) {
-
+    SaleError.belongsTo(models.Customer, { as: 'customer', foreignKey: 'customerId' }),
+    SaleError.belongsTo(models.Cart, { as: 'cart', foreignKey: 'cartId' }),
+    SaleError.belongsTo(models.PaymentMethod, { as: 'paymentMethod', foreignKey: 'paymentMethodId' })
   }
 
   return SaleError

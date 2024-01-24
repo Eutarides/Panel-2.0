@@ -109,7 +109,14 @@ module.exports = function (sequelize, DataTypes) {
   })
 
   Sale.associate = function (models) {
-    Sale.hasMany(models.Invoice, { as: 'invoices', foreignKey: 'saleId' })
+    Sale.belongsTo(models.Cart, { as: 'cart', foreignKey: 'cartId' }),
+    Sale.belongsTo(models.Customer, { as: 'customer', foreignKey: 'customerId' }),
+    Sale.belongsTo(models.PaymentMethod, { as: 'paymentMethod', foreignKey: 'paymentMethodId' }),
+    Sale.belongsTo(models.Coupon, { as: 'coupon', foreignKey: 'couponId' }),
+    Sale.hasMany(models.Invoice, { as: 'invoices', foreignKey: 'saleId' }),
+    Sale.hasMany(models.Return, { as: 'returns', foreignKey: 'saleId' }),
+    Sale.hasMany(models.SaleDetail, { as: 'saleDetails', foreignKey: 'saleId' }),
+    Sale.hasOne(models.Ticket, { as: 'ticket', foreignKey: 'saleId' })
   }
 
   return Sale

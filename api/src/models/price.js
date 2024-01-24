@@ -72,7 +72,8 @@ module.exports = function (sequelize, DataTypes) {
     Price.belongsTo(models.Tax, { as: 'tax', foreignKey: 'taxId' }),
     Price.hasMany(models.CartDetail, { as: 'cartDetails', foreignKey: 'priceId' }),
     Price.hasMany(models.PriceDiscount, { as: 'priceDiscounts', foreignKey: 'priceId' }),
-    Price.hasMany(models.ReturnDetail, { as: 'returnDetails', foreignKey: 'returnDetailId' })
+    Price.hasMany(models.ReturnDetail, { as: 'returnDetails', foreignKey: 'returnDetailId' }),
+    Price.hasMany(models.SaleDetail, { as: 'saleDetails', foreignKey: 'saleDetailId' })
   }
 
   return Price

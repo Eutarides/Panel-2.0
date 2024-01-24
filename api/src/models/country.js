@@ -60,7 +60,8 @@ module.exports = function (sequelize, DataTypes) {
     Country.hasOne(models.City, { as: 'city', foreignKey: 'countryId' }),
     Country.hasOne(models.Company, { as: 'company', foreignKey: 'countryId' }),
     Country.hasOne(models.Customer, { as: 'customer', foreignKey: 'countryId' }),
-    Country.hasOne(models.DialCode, { as: 'dialCode', foreignKey: 'countryId' })
+    Country.hasOne(models.DialCode, { as: 'dialCode', foreignKey: 'countryId' }),
+    Country.hasOne(models.Tax, { as: 'tax', foreignKey: 'countryId' })
   }
 
   return Country;

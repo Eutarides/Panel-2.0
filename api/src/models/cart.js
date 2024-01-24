@@ -69,7 +69,9 @@ module.exports = function (sequelize, DataTypes) {
   Cart.associate = function (models) {
     Cart.belongsTo(models.Customer, { as: 'customer', foreignKey: 'customerId' })
     Cart.belongsTo(models.Fingerprint, { as: 'fingerprint', foreignKey: 'fingerprintId' })
-    Cart.hasOne(models.CartDetail, { as: 'cart', foreignKey: 'cartId' })
+    Cart.hasOne(models.CartDetail, { as: 'cart', foreignKey: 'cartId' }),
+    Cart.hasMany(models.SaleError, { as: 'saleErrors', foreignKey: 'cartId' }),
+    Cart.hasMany(models.Sale, { as: 'sales', foreignKey: 'cartId' })
   }
 
   return Cart;
