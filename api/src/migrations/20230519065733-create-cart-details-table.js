@@ -116,6 +116,10 @@ module.exports = {
     await queryInterface.addIndex('cart_details', ['taxId'], {
       name: 'cart_details_taxId_fk'
     })
+
+    await queryInterface.addIndex('cart_details', ['priceDiscountId'], {
+      name: 'cart_details_priceDiscountId_fk'
+    })
   },
 
   down: async (queryInterface, Sequelize) => {
