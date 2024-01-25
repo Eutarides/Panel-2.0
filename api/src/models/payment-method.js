@@ -8,16 +8,31 @@ module.exports = function (sequelize, DataTypes) {
     },
     name: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Por favor, rellena el campo "Nombre".'
+        }
+      }
     },
     configuration: {
       type: DataTypes.JSON,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Por favor, rellena el campo "Configuración".'
+        }
+      }
     },
     visible: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
-      defaultValue: true
+      defaultValue: true,
+      validate: {
+        notNull: {
+          msg: 'Por favor, rellena el campo "Visible".'
+        }
+      }
     },
     createdAt: {
       type: DataTypes.DATE,
@@ -53,6 +68,7 @@ module.exports = function (sequelize, DataTypes) {
   });
 
   PaymentMethod.associate = function (models) {
+    PaymentMethod.belongsToMany(models.Product, { through: models.SaleDetail, as: 'products', foreignKey: 'paymentMethodId' }),
     PaymentMethod.hasMany(models.ReturnError, { as: 'returnErrors', foreignKey: 'paymentMethodId' }),
     PaymentMethod.hasMany(models.Return, { as: 'returns', foreignKey: 'paymentMethodId' }),
     PaymentMethod.hasMany(models.SaleError, { as: 'saleErrors', foreignKey: 'paymentMethodId' }),

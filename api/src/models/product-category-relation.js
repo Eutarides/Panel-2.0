@@ -8,11 +8,21 @@ module.exports = function (sequelize, DataTypes) {
     },
     productId: {
       type: Sequelize.INTEGER,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Por favor, rellena el campo "Producto".'
+        }
+      }
     },
     productCategoryId: {
       type: Sequelize.INTEGER,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Por favor, rellena el campo "Categoría de producto".'
+        }
+      }
     },
     createdAt: {
       type: DataTypes.DATE,

@@ -8,11 +8,21 @@ module.exports = function (sequelize, DataTypes) {
     },
     cartId: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Por favor, rellena el campo "Carrito".'
+        }
+      }
     },
     productId: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Por favor, rellena el campo "Producto".'
+        }
+      }
     },
     localeId: {
       type: DataTypes.INTEGER,
@@ -20,29 +30,59 @@ module.exports = function (sequelize, DataTypes) {
     },
     priceId: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Por favor, rellena el campo "Precio".'
+        }
+      }
     },
     priceDiscountId: {
       type: DataTypes.INTEGER
     },
     taxId: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Por favor, rellena el campo "Impuesto".'
+        }
+      }
     },
     productName: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Por favor, rellena el campo "Nombre de Producto".'
+        }
+      }
     },
     basePrice: {
       type: DataTypes.DECIMAL(6, 2),
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Por favor, rellena el campo "Precio base".'
+        }
+      }
     },
     taxPrice: {
-      type: DataTypes.DECIMAL(6, 2)
+      type: DataTypes.DECIMAL(6, 2),
+      validate: {
+        notNull: {
+          msg: 'Por favor, rellena el campo "Valor impositivo".'
+        }
+      }
     },
     quantity: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Por favor, rellena el campo "Cantidad".'
+        }
+      }
     },
     createdAt: {
       type: DataTypes.DATE,

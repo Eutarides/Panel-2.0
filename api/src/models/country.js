@@ -8,7 +8,12 @@ module.exports = function (sequelize, DataTypes) {
     },
     name: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Por favor, rellena el campo "Nombre".'
+        }
+      }
     },
     iso2: {
       type: DataTypes.STRING,
@@ -21,7 +26,12 @@ module.exports = function (sequelize, DataTypes) {
     visible: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
-      defaultValue: true
+      defaultValue: true,
+      validate: {
+        notNull: {
+          msg: 'Por favor, rellena el campo "Visible".'
+        }
+      }
     },
     createdAt: {
       type: DataTypes.DATE,

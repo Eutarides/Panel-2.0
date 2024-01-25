@@ -11,7 +11,12 @@ module.exports = function (sequelize, DataTypes) {
     },
     cityId: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Por favor, rellena el campo "Ciudad".'
+        }
+      }
     },
     fingerprint: {
       type: DataTypes.STRING,

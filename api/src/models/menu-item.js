@@ -8,7 +8,12 @@ module.exports = function (sequelize, DataTypes) {
     },
     menuId: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Por favor, rellena el campo "Menu".'
+        }
+      }
     },
     localeSeoId: {
       type: DataTypes.INTEGER,
@@ -22,7 +27,12 @@ module.exports = function (sequelize, DataTypes) {
     },
     name: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Por favor, rellena el campo "Nombre".'
+        }
+      }
     },
     description: {
       type: DataTypes.STRING
@@ -32,7 +42,12 @@ module.exports = function (sequelize, DataTypes) {
     },
     private: {
       type: DataTypes.BOOLEAN,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Por favor, rellena el campo "Privado".'
+        }
+      }
     },
     order: {
       type: DataTypes.INTEGER,

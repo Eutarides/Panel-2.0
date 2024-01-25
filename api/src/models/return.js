@@ -8,39 +8,84 @@ module.exports = function (sequelize, DataTypes) {
     },
     saleId: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Por favor, rellena el campo "Venta".'
+        }
+      }
     },
     customerId: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Por favor, rellena el campo "Cliente".'
+        }
+      }
     },
     paymentMethodId: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Por favor, rellena el campo "Método de pago".'
+        }
+      }
     },
     reference: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Por favor, rellena el campo "Referencia".'
+        }
+      }
     },
     totalPrice: {
       type: DataTypes.DECIMAL(10, 2),
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Por favor, rellena el campo "Precio Total".'
+        }
+      }
     },
     totalBasePrice: {
       type: DataTypes.DECIMAL(10, 2),
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Por favor, rellena el campo "Precio base Total".'
+        }
+      }
     },
     totalTaxPrice: {
       type: DataTypes.DECIMAL(10, 2),
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Por favor, rellena el campo "Valor impositivo total".'
+        }
+      }
     },
     returnDate: {
       type: DataTypes.DATEONLY,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Por favor, rellena el campo "Fecha de devolución".'
+        }
+      }
     },
     returnTime: {
       type: DataTypes.TIME,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Por favor, rellena el campo "Hora de devolución".'
+        }
+      }
     },
     createdAt: {
       type: DataTypes.DATE,
@@ -101,6 +146,7 @@ module.exports = function (sequelize, DataTypes) {
     Return.belongsTo(models.Sale, { as: 'sale', foreignKey: 'saleId' }),
     Return.belongsTo(models.Customer, { as: 'customer', foreignKey: 'customerId' }),
     Return.belongsTo(models.PaymentMethod, { as: 'paymentMethod', foreignKey: 'paymentMethodId' }),
+    Return.belongsToMany(models.Product, { through: models.ReturnDetail, as: 'products', foreignKey: 'returnId' }),
     Return.hasMany(models.Invoice, { as: 'invoices', foreignKey: 'returnId' }),
     Return.hasMany(models.ReturnDetail, { as: 'returnDetails', foreignKey: 'returnId' }),
     Return.hasMany(models.ReturnError, { as: 'returnErrors', foreignKey: 'returnId' }),

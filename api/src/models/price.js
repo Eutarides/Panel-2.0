@@ -8,11 +8,21 @@ module.exports = function (sequelize, DataTypes) {
     },
     productId: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Por favor, rellena el campo "Producto".'
+        }
+      }
     },
     taxId: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Por favor, rellena el campo "Impuesto".'
+        }
+      }
     },
     basePrice: {
       type: DataTypes.DECIMAL

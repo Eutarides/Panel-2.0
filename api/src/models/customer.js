@@ -8,54 +8,120 @@ module.exports = function (sequelize, DataTypes) {
     },
     countryId: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Por favor, rellena el campo "País".'
+        }
+      }
     },
     cityId: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Por favor, rellena el campo "Ciudad".'
+        }
+      }
     },
     dialCodeId: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Por favor, rellena el campo "Prefijo telefónico".'
+        }
+      }
     },
-    fiscalName: {
+    name: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Por favor, rellena el campo "Nombre".'
+        },
+        is: {
+          args: /^[a-z0-9\sáéíóúüñÁÉÍÓÚÜÑ]+$/i,
+          msg: 'Por favor, rellena el campo "Nombre" con un nombre válido, sin caracteres especiales.'
+        }
+      }
     },
-    comercialName: {
+    surname: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Por favor, rellena el campo "Apellido".'
+        },
+        is: {
+          args: /^[a-z0-9\sáéíóúüñÁÉÍÓÚÜÑ]+$/i,
+          msg: 'Por favor, rellena el campo "Apellido" con un apellido válido, sin caracteres especiales.'
+        }
+      }
     },
-    vat: {
+    telephone: {
       type: DataTypes.STRING,
-      allowNull: false
-    },
-    comercialAddress: {
-      type: DataTypes.STRING,
-      allowNull: true
-    },
-    fiscalAddress: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    postalCode: {
-      type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Por favor, rellena el campo "Teléfono".'
+        }
+      }
     },
     email: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true
+      unique: true,
+      validate: {
+        notNull: {
+          msg: 'Por favor, rellena el campo "Email".'
+        },
+        isEmail: {
+          msg: 'Por favor, rellena el campo "Email" con un email válido.'
+        },
+        isUnique: function (value, next) {
+          const self = this
+          Customer.findOne({ where: { email: value } }).then(function (customer) {
+            if (customer && self.id !== customer.id) {
+              return next('Ya existe un cliente con ese email.')
+            }
+            return next()
+          }).catch(function (err) {
+            return next(err)
+          })
+        }
+      }
     },
-    web: {
-      type: DataTypes.STRING
+    postalCode: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Por favor, rellena el campo "Código Postal".'
+        }
+      }
     },
-    telephone: {
-      type: DataTypes.STRING
+    address: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Por favor, rellena el campo "Dirección".'
+        }
+      }
+    },
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Por favor, rellena el campo "Contraseña".'
+        }
+      }
     },
     createdAt: {
       type: DataTypes.DATE,
-      get() {
+      get () {
         return this.getDataValue('createdAt')
           ? this.getDataValue('createdAt').toISOString().split('T')[0]
           : null
@@ -63,7 +129,7 @@ module.exports = function (sequelize, DataTypes) {
     },
     updatedAt: {
       type: DataTypes.DATE,
-      get() {
+      get () {
         return this.getDataValue('updatedAt')
           ? this.getDataValue('updatedAt').toISOString().split('T')[0]
           : null
@@ -84,8 +150,15 @@ module.exports = function (sequelize, DataTypes) {
         ]
       },
       {
-        name: 'customers_countryId_fk',
+        name: 'customer_email_index',
         unique: true,
+        using: 'BTREE',
+        fields: [
+          { name: 'email' }
+        ]
+      },
+      {
+        name: 'customers_countryId_fk',
         using: 'BTREE',
         fields: [
           { name: 'countryId' }
@@ -93,7 +166,6 @@ module.exports = function (sequelize, DataTypes) {
       },
       {
         name: 'customers_cityId_fk',
-        unique: true,
         using: 'BTREE',
         fields: [
           { name: 'cityId' }
@@ -101,43 +173,34 @@ module.exports = function (sequelize, DataTypes) {
       },
       {
         name: 'customers_dialCodeId_fk',
-        unique: true,
         using: 'BTREE',
         fields: [
           { name: 'dialCodeId' }
         ]
-      },
-      {
-        name: 'customers_email',
-        unique: true,
-        using: 'BTREE',
-        fields: [
-          { name: 'email' }
-        ]
       }
-      
     ]
-  });
+  })
 
   Customer.associate = function (models) {
     Customer.belongsTo(models.Country, { as: 'country', foreignKey: 'countryId' }),
     Customer.belongsTo(models.City, { as: 'city', foreignKey: 'cityId' }),
     Customer.belongsTo(models.DialCode, { as: 'dialCode', foreignKey: 'dialCodeId' }),
-    
-    Customer.hasMany(models.ApiTracking, { as: 'apiTrackings', foreignKey: 'customerId' }),
-    Customer.hasMany(models.Cart, { as: 'carts', foreignKey: 'customerId' }),
-    Customer.hasMany(models.CustomerTracking, { as: 'customerTrackings', foreignKey: 'customerId' }),
-    Customer.hasMany(models.EmailError, { as: 'emailErrors', foreignKey: 'customerId' }),
-    Customer.hasOne(models.Fingerprint, { as: 'fingerprint', foreignKey: 'customerId' }),
-    Customer.hasOne(models.Invoice, { as: 'invoice', foreignKey: 'customerId' }),
-    Customer.hasMany(models.PageTracking, { as: 'pageTrackings', foreignKey: 'customerId' }),
-    Customer.hasMany(models.CustomerError, { as: 'customerErrors', foreignKey: 'customerId' }),
-    Customer.hasMany(models.Return, { as: 'returns', foreignKey: 'customerId' }),
-    Customer.hasMany(models.SaleError, { as: 'saleErrors', foreignKey: 'customerId' }),
-    Customer.hasOne(models.Sale, { as: 'sale', foreignKey: 'customerId' }),
-    Customer.hasMany(models.SentEmail, { as: 'sentEmails', foreignKey: 'customerId' }),
-    Customer.hasOne(models.Ticket, { as: 'ticket', foreignKey: 'customerId' })
+    Customer.belongsToMany(models.Email, { through: models.SentEmail, as: 'emails', foreignKey: 'customerId' })
+    Customer.hasMany(models.ApiTracking, { as: 'apiTrackings', foreignKey: 'customerId' })
+    Customer.hasMany(models.PageTracking, { as: 'pageTrackings', foreignKey: 'customerId' })
+    Customer.hasMany(models.CustomerTracking, { as: 'customerTrackings', foreignKey: 'customerId' })
+    Customer.hasMany(models.Fingerprint, { as: 'fingerprints', foreignKey: 'customerId' })
+    Customer.hasMany(models.Cart, { as: 'carts', foreignKey: 'customerId' })
+    Customer.hasMany(models.Sale, { as: 'sales', foreignKey: 'customerId' })
+    Customer.hasMany(models.SaleError, { as: 'saleErrors', foreignKey: 'customerId' })
+    Customer.hasMany(models.Return, { as: 'returns', foreignKey: 'customerId' })
+    Customer.hasMany(models.ReturnError, { as: 'returnsErrors', foreignKey: 'customerId' })
+    Customer.hasMany(models.Invoice, { as: 'invoices', foreignKey: 'customerId' })
+    Customer.hasMany(models.Ticket, { as: 'tickets', foreignKey: 'customerId' })
+    Customer.hasMany(models.SentEmail, { as: 'sentEmails', foreignKey: 'customerId' })
+    Customer.hasMany(models.EmailError, { as: 'emailErrors', foreignKey: 'customerId' })
+    Customer.belongsToMany(models.Email, { through: models.SentEmail, as: 'emails', foreignKey: 'customerId' })
   }
 
-  return Customer;
+  return Customer
 }

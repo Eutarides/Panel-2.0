@@ -9,42 +9,106 @@ module.exports = function (sequelize, DataTypes) {
     countryId: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Por favor, rellena el campo "País".'
+        }
+      }
     },
     cityId: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Por favor, rellena el campo "Ciudad".'
+        }
+      }
     },
     dialCodeId: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Por favor, rellena el campo "Prefijo Telefónico".'
+        }
+      }
     },
     fiscalName: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Por favor, rellena el campo "Nombre Fiscal".'
+        }
+      }
     },
     comercialName: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Por favor, rellena el campo "Nombre Comercial".'
+        }
+      }
     },
     vat: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Por favor, rellena el campo "Vat".'
+        }
+      }
     },
     comercialAddress: {
       type: DataTypes.STRING,
-      allowNull: true
+      allowNull: true,
+      validate: {
+        notNull: {
+          msg: 'Por favor, rellena el campo "Dirección comercial".'
+        }
+      }
     },
     fiscalAddress: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Por favor, rellena el campo "Dirección Fiscal".'
+        }
+      }
     },
     postalCode: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Por favor, rellena el campo "Códig Postal".'
+        }
+      }
     },
     email: {
       type: DataTypes.STRING,
       allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Por favor, rellena el campo "Email".'
+        },
+        isEmail: {
+          msg: 'Por favor, rellena el campo "Email" con un email válido.'
+        },
+        isUnique: function (value, next) {
+          const self = this
+          Customer.findOne({ where: { email: value } }).then(function (customer) {
+            if (customer && self.id !== customer.id) {
+              return next('Ya existe un cliente con ese email.')
+            }
+            return next()
+          }).catch(function (err) {
+            return next(err)
+          })
+        }
+      },
       unique: true
     },
     web: {
