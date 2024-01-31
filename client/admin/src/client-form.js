@@ -107,7 +107,7 @@ class ClientForm extends HTMLElement {
             }
             
             .form-row{
-                height:35%;
+                height:5rem;
                 align-items:center;
                 justify-content: space-between;
                 gap: 1rem;
@@ -118,22 +118,41 @@ class ClientForm extends HTMLElement {
             
             .form-row.active{
                 display: flex;
-                height:35%;
+                height:5rem;
                 align-items:center;
                 justify-content: space-between;
                 gap: 1rem;
                 width: 100%;
                 margin-top:1rem;
             }
+
+            .form-column{
+                align-items:self-start;
+                justify-content: space-between;
+                gap: 1rem;
+                width: 100%;
+                margin-top:1rem;
+                display:none;
+                flex-direction:column;
+            }
+            
+            .form-column.active{
+                display: flex;
+                align-items:self-start;
+                justify-content: space-between;
+                gap: 1rem;
+                width: 100%;
+                margin-top:1rem;
+                flex-direction:column;
+            }
             
             .form-element{
-                height:100%;
                 display:flex;
                 flex-direction: column;
                 align-items: center;
                 justify-content:center;
                 gap:1rem;
-                width: 50%;
+                width: 100%;
             }
             
             .url-element{
@@ -174,6 +193,104 @@ class ClientForm extends HTMLElement {
             .url-element svg{
                 width:10%;
                 fill: rgb(119, 173, 193);
+            }
+
+            .language-tab{
+                display:flex;
+                justify-content: space-between;
+                flex-direction: row;
+                background-color: white;
+                border-radius: 5px;
+                width:100%;
+            }
+
+            .language-tab-title{
+                width:30%;
+                display:flex;
+                flex-direction:row;
+                gap:1px;
+            }
+
+            .language-tab-title-esp{
+                width:50%;
+                background-color:rgb(119, 173, 193);
+                border-radius: 5px;
+                display: flex;
+                align-items: center;
+                height:100%;
+                justify-content: space-around;
+            }
+
+            .language-tab-title-esp.active{
+                background-color:rgb(54, 119, 143);
+                width:50%;
+                border-radius: 5px;
+                display: flex;
+                align-items: center;
+                height:100%;
+            }
+
+            .language-tab-title-eng{
+                width:50%;
+                background-color:rgb(119, 173, 193);
+                border-radius: 5px;
+                display: flex;
+                align-items: center;
+                justify-content: space-around;
+            }
+
+            .language-tab-title-eng.active{
+                width:50%;
+                background-color:rgb(54, 119, 143);
+                border-radius: 5px;
+                display: flex;
+                align-items: center;
+            }
+
+            .language-tab-title-eng h3{
+                text-align: center;
+                color:white;
+                font-family: "Poppins", sans-serif;
+                margin: 0;
+                justify-content: space-around;
+            }
+
+            .language-tab-title-esp h3{
+                text-align: center;
+                color:white;
+                font-family: "Poppins", sans-serif;
+                margin: 0;
+                justify-content: space-around;
+            }
+
+            textarea {
+                background-color: hsl(235, 11%, 23%);
+                border: none;
+                color: hsl(0, 0%, 100%);
+                font-family: 'SoehneBuch', Arial;
+                font-size: 0.9rem;
+                resize: none;
+                width: 100%;
+                overflow-y: hidden;
+                height:5rem;
+                border-radius:5px;
+            }
+            
+            textarea::-webkit-scrollbar {
+                display: none;
+            }
+            
+            textarea::placeholder {
+                color: hsl(0, 0%, 100%, 0.5);
+                font-weight: 300;
+            }
+            
+            textarea:focus {
+                outline: none;
+            }
+
+            .subtab{
+                flex-direction:column;
             }
             
         </style>
@@ -224,6 +341,51 @@ class ClientForm extends HTMLElement {
                         <input name="confirmPassword" type="password" class="validate" data-minlength="8" data-onlyletters="true">
                     </div>
                 </div>
+
+                <div class="form-row active subtab" data-value= "1">
+                    <div class="language-tab">
+                        <div class="language-tab-title">
+                            <div class="language-tab-title-esp active image-menu-button" data-value= "3">
+                                <h3>ESP</h3>
+                            </div>
+                            <div class="language-tab-title-eng image-menu-button" data-value= "4">
+                                <h3>ENG</h3>
+                            </div>
+                        </div> 
+                    </div>
+                    <div class="form-column active" data-value= "3">
+                        <div class="form-element">
+                            <div class="element-placeholder">
+                                <p>Título</p>
+                            </div>
+                            <input name="title" type="text">
+                        </div>
+
+                        <div class="form-element">
+                            <div class="element-placeholder">
+                                <p>Descripción</p>
+                            </div>
+                            <textarea placeholder="Introduce una descripción"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-column" data-value= "4">
+                        <div class="form-element">
+                            <div class="element-placeholder">
+                                <p>Title</p>
+                            </div>
+                            <input name="title" type="text">
+                        </div>
+
+                        <div class="form-element">
+                            <div class="element-placeholder">
+                                <p>Description</p>
+                            </div>
+                            <textarea placeholder="Introduce una descripción"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+
                 <div class="form-row" data-value= "2">
                     <div class= "form-element url-element">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>tab-plus</title><path d="M3,3A2,2 0 0,0 1,5V19A2,2 0 0,0 3,21H21A2,2 0 0,0 23,19V5A2,2 0 0,0 21,3H3M3,5H13V9H21V19H3V5M10,10V13H7V15H10V18H12V15H15V13H12V10H10Z" /></svg>
@@ -235,7 +397,9 @@ class ClientForm extends HTMLElement {
         `
 
     const imageMenu = this.shadow.querySelector('.image-menu')
+    const languageTab = this.shadow.querySelector('.language-tab')
     const formRows = this.shadow.querySelectorAll('.form-row')
+    const formColumns = this.shadow.querySelectorAll('.form-column')
     const save = this.shadow.querySelector('.send-form-button')
 
     imageMenu?.addEventListener('click', async (event) => {
@@ -252,6 +416,25 @@ class ClientForm extends HTMLElement {
             formRow.classList.add('active')
           } else if (button.dataset.value !== formRow.dataset.value) {
             formRow.classList.remove('active')
+          }
+        })
+      }
+    })
+
+    languageTab?.addEventListener('click', async (event) => {
+      if (event.target.closest('.image-menu-button')) {
+        const button = event.target.closest('.image-menu-button')
+        button.parentElement.querySelector('.active').classList.remove('active')
+        button.classList.add('active')
+
+        // button.closest('form').querySelector(".form-row.active").classList.remove('active');
+        // button.closest('form').querySelector(`.form-row[data-value="${button.dataset.value}"]`).classList.add('active');
+
+        formColumns.forEach(formColumn => {
+          if (button.dataset.value === formColumn.dataset.value) {
+            formColumn.classList.add('active')
+          } else if (button.dataset.value !== formColumn.dataset.value) {
+            formColumn.classList.remove('active')
           }
         })
       }
