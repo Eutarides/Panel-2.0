@@ -25,7 +25,7 @@ class ClientForm extends HTMLElement {
                 flex-direction: row;
                 background-color: white;
                 border-radius: 5px;
-                margin-bottom:2rem;
+                margin-bottom:4rem;
             }
             
             .image-menu-title{
@@ -107,7 +107,6 @@ class ClientForm extends HTMLElement {
             }
             
             .form-row{
-                height:5rem;
                 align-items:center;
                 justify-content: space-between;
                 gap: 1rem;
@@ -118,7 +117,6 @@ class ClientForm extends HTMLElement {
             
             .form-row.active{
                 display: flex;
-                height:5rem;
                 align-items:center;
                 justify-content: space-between;
                 gap: 1rem;
@@ -292,6 +290,46 @@ class ClientForm extends HTMLElement {
             .subtab{
                 flex-direction:column;
             }
+
+            .gallery-column{
+                display:flex;
+                flex-direction:column;
+                width:23%;
+            }
+
+            .gallery-title{
+                padding-left:30%;
+                padding-right:30%;
+                color:white;
+                display:flex;
+                flex-direction:column;
+                align-items:center;
+            }
+
+            .gallery-data{
+                display:flex;
+                flex-wrap:wrap;
+                justify-content:space-between;
+                gap:1rem;
+            }
+
+            .upload-frame{
+                width:80px;
+                height:80px;
+                background-color:white;
+                display:flex;
+                align-items:center;
+            }
+
+            .upload-frame svg{
+                width:40%;
+                margin-left:30%;
+            }
+
+            .gallery-image{
+                width:80px;
+                height:80px;
+            }
             
         </style>
 
@@ -387,8 +425,48 @@ class ClientForm extends HTMLElement {
 
 
                 <div class="form-row" data-value= "2">
-                    <div class= "form-element url-element">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>tab-plus</title><path d="M3,3A2,2 0 0,0 1,5V19A2,2 0 0,0 3,21H21A2,2 0 0,0 23,19V5A2,2 0 0,0 21,3H3M3,5H13V9H21V19H3V5M10,10V13H7V15H10V18H12V15H15V13H12V10H10Z" /></svg>
+                    <div class="gallery-column">
+                        <div class="gallery-title">
+                            <h2>Imagen destacada</h2>
+                        </div>
+                        <div class="gallery-data">
+                            <div class="upload-frame">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>plus</title><path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" /></svg>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="gallery-column">
+                        <div class="gallery-title">
+                            <h2>Imagen destacada</h2>
+                        </div>
+                        <div class="gallery-data">
+                            <div class="upload-frame">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>plus</title><path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" /></svg>
+                            </div>
+
+                            <div class="upload-frame">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>plus</title><path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" /></svg>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="gallery-column">
+                        <div class="gallery-title">
+                            <h2>Imagen destacada</h2>
+                        </div>
+                        <div class="gallery-data">
+                            <div class="upload-frame">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>plus</title><path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" /></svg>
+                            </div>
+
+                            <div class="upload-frame">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>plus</title><path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" /></svg>
+                            </div>
+                            <div class="upload-frame">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>plus</title><path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" /></svg>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </form>
@@ -408,9 +486,6 @@ class ClientForm extends HTMLElement {
         button.parentElement.querySelector('.active').classList.remove('active')
         button.classList.add('active')
 
-        // button.closest('form').querySelector(".form-row.active").classList.remove('active');
-        // button.closest('form').querySelector(`.form-row[data-value="${button.dataset.value}"]`).classList.add('active');
-
         formRows.forEach(formRow => {
           if (button.dataset.value === formRow.dataset.value) {
             formRow.classList.add('active')
@@ -426,9 +501,6 @@ class ClientForm extends HTMLElement {
         const button = event.target.closest('.image-menu-button')
         button.parentElement.querySelector('.active').classList.remove('active')
         button.classList.add('active')
-
-        // button.closest('form').querySelector(".form-row.active").classList.remove('active');
-        // button.closest('form').querySelector(`.form-row[data-value="${button.dataset.value}"]`).classList.add('active');
 
         formColumns.forEach(formColumn => {
           if (button.dataset.value === formColumn.dataset.value) {
