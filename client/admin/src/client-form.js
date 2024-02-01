@@ -107,7 +107,7 @@ class ClientForm extends HTMLElement {
             }
             
             .form-row{
-                align-items:center;
+                align-items:start;
                 justify-content: space-between;
                 gap: 1rem;
                 width: 100%;
@@ -117,7 +117,7 @@ class ClientForm extends HTMLElement {
             
             .form-row.active{
                 display: flex;
-                align-items:center;
+                align-items:start;
                 justify-content: space-between;
                 gap: 1rem;
                 width: 100%;
@@ -265,7 +265,7 @@ class ClientForm extends HTMLElement {
                 background-color: hsl(235, 11%, 23%);
                 border: none;
                 color: hsl(0, 0%, 100%);
-                font-family: 'SoehneBuch', Arial;
+                font-family: "Poppins", sans-serif;
                 font-size: 0.9rem;
                 resize: none;
                 width: 100%;
@@ -304,6 +304,11 @@ class ClientForm extends HTMLElement {
                 display:flex;
                 flex-direction:column;
                 align-items:center;
+                font-family: "Poppins", sans-serif;
+            }
+
+            .gallery-title h2{
+                font-size: 1.2rem;
             }
 
             .gallery-data{
@@ -444,10 +449,6 @@ class ClientForm extends HTMLElement {
                             <div class="upload-frame">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>plus</title><path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" /></svg>
                             </div>
-
-                            <div class="upload-frame">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>plus</title><path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" /></svg>
-                            </div>
                         </div>
                     </div>
 
@@ -456,13 +457,6 @@ class ClientForm extends HTMLElement {
                             <h2>Imagen destacada</h2>
                         </div>
                         <div class="gallery-data">
-                            <div class="upload-frame">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>plus</title><path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" /></svg>
-                            </div>
-
-                            <div class="upload-frame">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>plus</title><path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" /></svg>
-                            </div>
                             <div class="upload-frame">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>plus</title><path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" /></svg>
                             </div>
