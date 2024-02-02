@@ -16,7 +16,7 @@ class ClientForm extends HTMLElement {
                 display:flex;
                 flex-direction: column;
                 justify-content: space-between;
-                height:100%;
+                max-width:50vw;
             }
             
             .image-menu{
@@ -43,6 +43,7 @@ class ClientForm extends HTMLElement {
                 align-items: center;
                 height:100%;
                 justify-content: space-around;
+                cursor:pointer;
             }
             
             .image-menu-title-principal.active{
@@ -61,6 +62,7 @@ class ClientForm extends HTMLElement {
                 display: flex;
                 align-items: center;
                 justify-content: space-around;
+                cursor:pointer;
             }
             
             .image-menu-title-imagenes.active{
@@ -90,6 +92,7 @@ class ClientForm extends HTMLElement {
             .image-menu-svg{
                 width:15%;
                 display:flex;
+                cursor:pointer;
             }
             
             .image-menu-svg svg{
@@ -217,6 +220,7 @@ class ClientForm extends HTMLElement {
                 align-items: center;
                 height:100%;
                 justify-content: space-around;
+                cursor:pointer;
             }
 
             .language-tab-title-esp.active{
@@ -235,6 +239,7 @@ class ClientForm extends HTMLElement {
                 display: flex;
                 align-items: center;
                 justify-content: space-around;
+                cursor:pointer;
             }
 
             .language-tab-title-eng.active{
@@ -289,51 +294,6 @@ class ClientForm extends HTMLElement {
 
             .subtab{
                 flex-direction:column;
-            }
-
-            .gallery-column{
-                display:flex;
-                flex-direction:column;
-                width:23%;
-            }
-
-            .gallery-title{
-                padding-left:30%;
-                padding-right:30%;
-                color:white;
-                display:flex;
-                flex-direction:column;
-                align-items:center;
-                font-family: "Poppins", sans-serif;
-            }
-
-            .gallery-title h2{
-                font-size: 1.2rem;
-            }
-
-            .gallery-data{
-                display:flex;
-                flex-wrap:wrap;
-                justify-content:space-between;
-                gap:1rem;
-            }
-
-            .upload-frame{
-                width:80px;
-                height:80px;
-                background-color:white;
-                display:flex;
-                align-items:center;
-            }
-
-            .upload-frame svg{
-                width:40%;
-                margin-left:30%;
-            }
-
-            .gallery-image{
-                width:80px;
-                height:80px;
             }
             
         </style>
@@ -430,38 +390,8 @@ class ClientForm extends HTMLElement {
 
 
                 <div class="form-row" data-value= "2">
-                    <div class="gallery-column">
-                        <div class="gallery-title">
-                            <h2>Imagen destacada</h2>
-                        </div>
-                        <div class="gallery-data">
-                            <div class="upload-frame">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>plus</title><path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" /></svg>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="gallery-column">
-                        <div class="gallery-title">
-                            <h2>Imagen destacada</h2>
-                        </div>
-                        <div class="gallery-data">
-                            <div class="upload-frame">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>plus</title><path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" /></svg>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="gallery-column">
-                        <div class="gallery-title">
-                            <h2>Imagen destacada</h2>
-                        </div>
-                        <div class="gallery-data">
-                            <div class="upload-frame">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>plus</title><path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" /></svg>
-                            </div>
-                        </div>
-                    </div>
+                    <slot name="gallery">
+                    </slot>
                 </div>
             </form>
         </div>
