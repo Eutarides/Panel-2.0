@@ -42,8 +42,8 @@ class Overlay extends HTMLElement {
             z-index: 3000;
             display: block;
             background-color: hsl(194, 68%, 71%);
-            right:20%;
-            top:5%;
+            right:15%;
+            top:10%;
             border-radius:10px;
           }
           
@@ -55,37 +55,7 @@ class Overlay extends HTMLElement {
             padding-left:1rem;
             margin-top:1rem;
           }
-          
-          .image-overlay{
-            height:70%;
-            display:flex;
-            display:none;
-          }
-          
-          .image-overlay.active{
-            height:70%;
-            display:flex;
-            flex-direction:column;
-          }
-          
-          .image-overlay-title{
-            height:15%;
-            padding-left:3%;
-            margin-top:1rem;
-          }
-          
-          .image-overlay-title p{
-            font-size: 1.3rem;
-            font-family: "Poppins", sans-serif;
-            margin: 0;
-          }
-          
-          .image-overlay-svg{
-            fill:black;
-            width:10%;
-            padding-left:2rem;
-          }
-          
+
           .gallery-overlay{
             height:80%;
             display:flex;
@@ -128,78 +98,108 @@ class Overlay extends HTMLElement {
             margin-left:50%;
             width:10%;
           }
-          
-          .image{
-            width:80%;
-            height:80%;
+
+          .upload-frame{
+            width:80px;
+            height:80px;
+            background-color:white;
+            display:flex;
+            align-items:center;
+            cursor:pointer;
+          }
+  
+          .upload-frame svg{
+            width:40%;
+            margin-left:30%;
           }
           
-          .gallery-overlay-menu{
-            width:20%;
-            right:5%;
-            top:10%;
-            position:absolute;
+          .gallery-overlay{
+            display:flex;
+            margin-left:2%;
+            margin-right:2%;
+            margin-top:2%;
+            gap:1rem;
           }
-          
-          .gallery-overlay-menu p{
-            text-align:center;
-            font-family: "Poppins", sans-serif;
-            font-size:1.3rem;
-          }
-          
-          .gallery-overlay input{
+
+          .gallery-overlay-row{
+            background-color:rgb(54, 119, 143);
+            display:flex;
             width:100%;
-            border-radius:7px;
-            border-style: none;
-            height:1.5rem;
+            display:none;
           }
-          
-          .img.selected{
-            border: 2px hsl(84, 71%, 46%);
+
+          .gallery-overlay-row.active{
+            background-color:rgb(54, 119, 143);
+            display:grid;
+            width:100%;
+            padding:2% 2%;
+            gap:1rem;
           }
-          
-          .gallery-overlay button{
-            bottom:0%;
-            right:5%;
-            width:20%;
-            height:10%;
-            background-color: rgb(119, 173, 193);
-            color:white;
-            cursor: pointer;
-            border-radius:10px;
-            border:none;
-            font-size:1.3rem;
-            position:absolute;
-          }
-            
         
         </style>
 
         <div class="overlay active">
           <div class="overlay-menu">
-            <button class="overlay-button active" data-value="1">Imágenes</button>
-            <button class="overlay-button" data-value="2">Galería</button>
+            <button class="overlay-button active" data-value="1">Galería</button>
+            <button class="overlay-button" data-value="2">Subir imagen</button>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>close</title><path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" /></svg>
           </div>
-          <div class="image-overlay row active" data-value="1">
-            <div class="image-overlay-title">
-              <p>Selecciona una imágen.</p>
+          <div class="gallery-overlay">
+            <div class="gallery-overlay-row" data-value="1">
+              
             </div>
-            <div class="image-overlay-svg">
-              <input type="file" id="file-input" style="display: none;">
-              <label for="file-input">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>tab-plus</title><path d="M3,3A2,2 0 0,0 1,5V19A2,2 0 0,0 3,21H21A2,2 0 0,0 23,19V5A2,2 0 0,0 21,3H3M3,5H13V9H21V19H3V5M10,10V13H7V15H10V18H12V15H15V13H12V10H10Z" /></svg>
-              </label>                
+            <div class="gallery-overlay-row active" data-value="2">
+              <div class="upload-frame">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>plus</title><path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" /></svg>
+              </div>
+
+              <div class="upload-frame">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>plus</title><path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" /></svg>
+              </div>
+
+              <div class="upload-frame">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>plus</title><path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" /></svg>
+              </div>
+
+              <div class="upload-frame">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>plus</title><path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" /></svg>
+              </div>
+
+              <div class="upload-frame">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>plus</title><path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" /></svg>
+              </div>
+
+              <div class="upload-frame">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>plus</title><path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" /></svg>
+              </div>
+
+              <div class="upload-frame">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>plus</title><path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" /></svg>
+              </div>
+
+              <div class="upload-frame">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>plus</title><path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" /></svg>
+              </div>
+
+              <div class="upload-frame">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>plus</title><path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" /></svg>
+              </div>
+
+              <div class="upload-frame">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>plus</title><path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" /></svg>
+              </div>
             </div>
-          </div>
-          <div class="gallery-overlay row" data-value="2">
-            <div class="gallery-overlay-menu">
-              <p>Título</p>
-              <input class="title"></input>
-              <p>Texto alternativo</p>
-              <input class="alt"></input>
+            <div class="gallery-overlay-aside">
+              <div class="gallery-overlay-aside-element">
+                <h3>Título</h3>
+                <input></input>
+              </div>
+
+              <div class="gallery-overlay-aside-element">
+                <h3>Texto alternativo</h3>
+                <input></input>
+              </div>
             </div>
-            <button>Elegir imagen</button>
           </div>
         </div>
 
@@ -209,35 +209,23 @@ class Overlay extends HTMLElement {
   }
 
   renderButtons = async () => {
-    const modalConfirmButton = this.shadow.querySelector('.modal-confirm-button')
+    const overlayMenu = this.shadow.querySelector('.overlay-menu')
+    const rows = this.shadow.querySelectorAll('.row')
 
-    modalConfirmButton.addEventListener('click', event => {
-      event.preventDefault()
-      const overlay = this.shadow.querySelector('.overlay')
-      overlay.classList.remove('active')
-      fetch(`http://127.0.0.1:8080/api${this.getAttribute('url')}/${this.id}`, {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${sessionStorage.getItem('accessToken')}`
-        }
-      }).then(response => {
-        if (response.ok) {
-          console.log('Registro eliminado con éxito')
-          document.dispatchEvent(new CustomEvent('refresh-table'))
-        } else {
-          console.log('Error al eliminar el registro')
-        }
-      }).catch(error => {
-        console.log(error)
-      })
-    })
+    overlayMenu?.addEventListener('click', async (event) => {
+      if (event.target.closest('.overlay-button')) {
+        const button = event.target.closest('.overlay-button')
+        button.parentElement.querySelector('.active').classList.remove('active')
+        button.classList.add('active')
 
-    const modalDenyButton = this.shadow.querySelector('.modal-deny-button')
-
-    modalDenyButton.addEventListener('click', event => {
-      const overlay = this.shadow.querySelector('.overlay')
-      overlay.classList.remove('active')
+        rows.forEach(row => {
+          if (button.dataset.value === row.dataset.value) {
+            row.classList.add('active')
+          } else if (button.dataset.value !== row.dataset.value) {
+            row.classList.remove('active')
+          }
+        })
+      }
     })
   }
 }
