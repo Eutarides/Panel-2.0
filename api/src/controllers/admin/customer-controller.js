@@ -73,7 +73,7 @@ exports.update = (req, res) => {
     }
   }).catch(_ => {
     res.status(500).send({
-      message: 'Algún error ha surgido al actualizar la id=' + id
+      message: 'Algún error ha surgido al actualizar la id=' + id,
     });
   });
 };
@@ -95,7 +95,7 @@ exports.delete = (req, res) => {
     }
   }).catch(_ => {
     res.status(500).send({
-      message: 'Algún error ha surgido al borrar la id=' + id
+      message: 'Algún error ha surgido al borrar la id=' + id ,
     });
   });
 };
