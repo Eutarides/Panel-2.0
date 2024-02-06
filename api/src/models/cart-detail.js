@@ -69,6 +69,7 @@ module.exports = function (sequelize, DataTypes) {
     },
     taxPrice: {
       type: DataTypes.DECIMAL(6, 2),
+      allowNull: false,
       validate: {
         notNull: {
           msg: 'Por favor, rellena el campo "Valor impositivo".'

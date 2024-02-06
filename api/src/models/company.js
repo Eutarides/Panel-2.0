@@ -62,7 +62,7 @@ module.exports = function (sequelize, DataTypes) {
     },
     comercialAddress: {
       type: DataTypes.STRING,
-      allowNull: true,
+      allowNull: false,
       validate: {
         notNull: {
           msg: 'Por favor, rellena el campo "Dirección comercial".'

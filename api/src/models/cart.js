@@ -9,7 +9,7 @@ module.exports = function (sequelize, DataTypes) {
     uuid: {
       type: DataTypes.UUID,
       allowNull: false,
-      defaultValue: Sequelize.UUIDV4,
+      defaultValue: DataTypes.UUIDV4,
       validate: {
         notNull: {
           msg: 'Por favor, rellena el campo "Carrito".'

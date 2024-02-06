@@ -7,7 +7,7 @@ module.exports = function (sequelize, DataTypes) {
       allowNull: false
     },
     productId: {
-      type: Sequelize.INTEGER,
+      type: DataTypes.INTEGER,
       allowNull: false,
       validate: {
         notNull: {
@@ -16,7 +16,7 @@ module.exports = function (sequelize, DataTypes) {
       }
     },
     productCategoryId: {
-      type: Sequelize.INTEGER,
+      type: DataTypes.INTEGER,
       allowNull: false,
       validate: {
         notNull: {
@@ -75,7 +75,7 @@ module.exports = function (sequelize, DataTypes) {
 
   ProductCategoryRelation.associate = function (models) {
     ProductCategoryRelation.belongsTo(models.Product, { as: 'product', foreignKey: 'productId' }),
-    ProductCategoryRelation.belongsTo(models.ProductCAtegory, { as: 'productCAtegory', foreignKey: 'productCategoryId' })
+    ProductCategoryRelation.belongsTo(models.ProductCategory, { as: 'productCAtegory', foreignKey: 'productCategoryId' })
   }
 
   return ProductCategoryRelation;

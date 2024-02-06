@@ -126,68 +126,42 @@ class Overlay extends HTMLElement {
             display:flex;
             width:100%;
             display:none;
+            flex-wrap:wrap;
           }
 
           .gallery-overlay-row.active{
             background-color:rgb(54, 119, 143);
-            display:grid;
-            width:100%;
+            display:flex;
+            width:80%;
             padding:2% 2%;
             gap:1rem;
+            align-items:flex-start;
+          }
+
+          .sub-container{
+            display:flex;
+            gap:1rem;
+            flex-wrap:wrap;
           }
         
         </style>
 
         <div class="overlay active">
           <div class="overlay-menu">
-            <button class="overlay-button active" data-value="1">Galería</button>
-            <button class="overlay-button" data-value="2">Subir imagen</button>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>close</title><path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" /></svg>
+            <button class="overlay-button" data-value="1">Galería</button>
+            <button class="overlay-button active" data-value="2">Subir imagen</button>
+            <svg class="close-button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>close</title><path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" /></svg>
           </div>
           <div class="gallery-overlay">
             <div class="gallery-overlay-row" data-value="1">
               
             </div>
             <div class="gallery-overlay-row active" data-value="2">
-              <div class="upload-frame">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>plus</title><path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" /></svg>
-              </div>
-
-              <div class="upload-frame">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>plus</title><path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" /></svg>
-              </div>
-
-              <div class="upload-frame">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>plus</title><path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" /></svg>
-              </div>
-
-              <div class="upload-frame">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>plus</title><path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" /></svg>
-              </div>
-
-              <div class="upload-frame">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>plus</title><path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" /></svg>
-              </div>
-
-              <div class="upload-frame">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>plus</title><path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" /></svg>
-              </div>
-
-              <div class="upload-frame">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>plus</title><path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" /></svg>
-              </div>
-
-              <div class="upload-frame">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>plus</title><path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" /></svg>
-              </div>
-
-              <div class="upload-frame">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>plus</title><path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" /></svg>
-              </div>
-
-              <div class="upload-frame">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>plus</title><path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" /></svg>
-              </div>
+              <div class="sub-container">
+                <div class="upload-frame">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>plus</title><path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" /></svg>
+                </div>
+              </div>  
             </div>
             <div class="gallery-overlay-aside">
               <div class="gallery-overlay-aside-element">
@@ -210,7 +184,9 @@ class Overlay extends HTMLElement {
 
   renderButtons = async () => {
     const overlayMenu = this.shadow.querySelector('.overlay-menu')
-    const rows = this.shadow.querySelectorAll('.row')
+    const galleryRows = this.shadow.querySelectorAll('.gallery-overlay-row')
+    const closeButton = this.shadow.querySelector('.close-button')
+    const overlay = this.shadow.querySelector('.overlay')
 
     overlayMenu?.addEventListener('click', async (event) => {
       if (event.target.closest('.overlay-button')) {
@@ -218,14 +194,18 @@ class Overlay extends HTMLElement {
         button.parentElement.querySelector('.active').classList.remove('active')
         button.classList.add('active')
 
-        rows.forEach(row => {
-          if (button.dataset.value === row.dataset.value) {
-            row.classList.add('active')
-          } else if (button.dataset.value !== row.dataset.value) {
-            row.classList.remove('active')
+        galleryRows.forEach(galleryRow => {
+          if (button.dataset.value === galleryRow.dataset.value) {
+            galleryRow.classList.add('active')
+          } else if (button.dataset.value !== galleryRow.dataset.value) {
+            galleryRow.classList.remove('active')
           }
         })
       }
+    })
+
+    closeButton.addEventListener('click', async (event) => {
+      overlay.classList.remove('active')
     })
   }
 }

@@ -27,8 +27,8 @@ module.exports = function (sequelize, DataTypes) {
         },
         isUnique: function (value, next) {
           const self = this
-          Customer.findOne({ where: { email: value } }).then(function (customer) {
-            if (customer && self.id !== customer.id) {
+          User.findOne({ where: { email: value } }).then(function (user) {
+            if (user && self.id !== user.id) {
               return next('Ya existe un cliente con ese email.')
             }
             return next()

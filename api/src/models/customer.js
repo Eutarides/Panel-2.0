@@ -199,7 +199,6 @@ module.exports = function (sequelize, DataTypes) {
     Customer.hasMany(models.Ticket, { as: 'tickets', foreignKey: 'customerId' })
     Customer.hasMany(models.SentEmail, { as: 'sentEmails', foreignKey: 'customerId' })
     Customer.hasMany(models.EmailError, { as: 'emailErrors', foreignKey: 'customerId' })
-    Customer.belongsToMany(models.Email, { through: models.SentEmail, as: 'emails', foreignKey: 'customerId' })
   }
 
   return Customer
