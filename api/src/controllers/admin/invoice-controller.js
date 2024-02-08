@@ -3,7 +3,7 @@ const Invoice = db.Invoice;
 const Op = db.Sequelize.Op;
 
 exports.create = (req, res) => {
-  Image.create(req.body).then(data => {
+  Invoice.create(req.body).then(data => {
     res.status(200).send(data);
   }).catch(err => {
     res.status(500).send({
