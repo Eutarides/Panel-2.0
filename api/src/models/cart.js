@@ -15,7 +15,8 @@ module.exports = function (sequelize, DataTypes) {
           msg: 'Por favor, rellena el campo "Carrito".'
         },
         isUUID: {
-          4: 'Por favor, introduce un valor válido.'
+          args:4,
+          msg: 'Por favor, introduce un valor válido.'
         }
       }
     },

@@ -1,6 +1,6 @@
 module.exports = (app, upload) => {
   const router = require('express').Router()
-  const controller = require('../controllers/admin/image-configuration-controller.js')
+  const controller = require('../controllers/admin/locale-seo-slug-controller.js')
 
   router.post('/', controller.create)
   router.get('/', controller.findAll)
@@ -8,5 +8,5 @@ module.exports = (app, upload) => {
   router.put('/:id', controller.update)
   router.delete('/:id', controller.delete)
 
-  app.use('/api/admin/image-configurations', router)
+  app.use('/api/admin/locale-seo-slugs', router)
 }
