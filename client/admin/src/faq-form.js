@@ -296,6 +296,31 @@ class FaqForm extends HTMLElement {
               flex-direction:column;
             }
             
+            .error-window{
+              position:fixed;
+              right:20%;
+              top:5%;
+              border-radius:5px;
+              background-color: hsl(123, 59%, 51%);
+              opacity:0;
+              visibility:hidden;
+              transition:0.5s;
+              padding:0 2%;
+            }
+
+            .error-window.active{
+              position:fixed;
+              right:20%;
+              top:6%;
+              border-radius:5px;
+              background-color: hsl(123, 59%, 51%);
+              opacity:1;
+              visibility:visible;
+              z-index:1000;
+              transition:0.5s;
+              padding:0 2%;
+            }
+
         </style>
 
         <div class="faq-form">
@@ -311,6 +336,9 @@ class FaqForm extends HTMLElement {
                 </svg>
                 <div class="send-form-button"> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>content-save</title><path d="M15,9H5V5H15M12,19A3,3 0 0,1 9,16A3,3 0 0,1 12,13A3,3 0 0,1 15,16A3,3 0 0,1 12,19M17,3H5C3.89,3 3,3.9 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V7L17,3Z" /></svg></div>
               </div>
+            </div>
+            <div class="error-window active">
+              <ul></ul>
             </div>
             <div class="form-row active" data-value= "1">
               <input name="id" type="hidden">
@@ -447,6 +475,15 @@ class FaqForm extends HTMLElement {
 
         error.message.forEach(message => {
           console.log(message.message)
+          error.forEach(message => {
+            const windowUl = this.shadow.querySelector('ul')
+            const windowLi = this.shadow.createElement('li')
+            const windowP = this.shadow.createElement('p')
+            windowLi.innerHTML = message.message
+            windowLi.className = 'element'
+            windowUl.appendChild(windowLi)
+            windowLi.appencChild(windowP)
+          })
         })
       }
     })
