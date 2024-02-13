@@ -19,7 +19,7 @@ class Notification extends HTMLElement {
             .notification{
                 position:fixed;
                 right:5.3%;
-                bottom:45%;
+                bottom:15%;
                 border-radius:5px;
                 background-color: hsl(123, 59%, 51%);
                 opacity:0;
@@ -31,7 +31,7 @@ class Notification extends HTMLElement {
             .notification.active{
                 position:fixed;
                 right:5.3%;
-                bottom:45%;
+                bottom:10%;
                 border-radius:5px;
                 background-color: hsl(123, 59%, 51%);
                 opacity:1;
@@ -48,7 +48,7 @@ class Notification extends HTMLElement {
         </style>
 
         <div class="notification">
-            <p>Usuario registrado con éxito.</p>
+            <p>Registro realizado con éxito.</p>
         </div>
 
         `

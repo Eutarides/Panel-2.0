@@ -146,7 +146,7 @@ class Overlay extends HTMLElement {
         
         </style>
 
-        <div class="overlay active">
+        <div class="overlay">
           <div class="overlay-menu">
             <button class="overlay-button" data-value="1">Galería</button>
             <button class="overlay-button active" data-value="2">Subir imagen</button>
