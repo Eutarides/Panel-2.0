@@ -2,11 +2,18 @@ class Table extends HTMLElement {
   constructor () {
     super()
     this.shadow = this.attachShadow({ mode: 'open' })
-    this.render()
+    this.rows = null
   }
 
   connectedCallback () {
+    this.loadData().then(() => this.render())
   };
+
+  async loadData () {
+    const response = await fetch(`${import.meta.env.VITE_API_URL}${this.getAttribute('endpoint')}`)
+    const data = await response.json()
+    this.rows = data.rows
+  }
 
   render () {
     this.shadow.innerHTML =
@@ -54,7 +61,7 @@ class Table extends HTMLElement {
             
             .client-item{
                 width:90%;
-                height:40%;
+                height:23%;
             }
             
             .client-item-images{
@@ -123,7 +130,7 @@ class Table extends HTMLElement {
             
             .table{
                 height:80%;
-                width:90%;
+                width:40vw;
                 align-items: center;
                 display: flex;
                 flex-direction:column;
@@ -132,7 +139,6 @@ class Table extends HTMLElement {
             }
             
             .filter{
-                width:90%;
                 background-color:rgb(119, 173, 193);
                 align-items:center;
                 border-radius: 5px;
@@ -172,7 +178,6 @@ class Table extends HTMLElement {
             }
             
             .page-counter{
-                width:90%;
                 height:13%;
                 display: flex;
                 flex-direction: column;
@@ -217,82 +222,7 @@ class Table extends HTMLElement {
                 </div>
             </div>
             <div class="table">
-                <div class="client-item">
-                    <div class="client-item-images">
-                        <div class="edit-button">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>pencil</title><path d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z" />
-                            </svg>
-                        </div>
-                        <div class="delete-button">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>delete</title><path d="M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z" />
-                            </svg>
-                        </div>
-                    </div>
-                    <div class="client-item-data">
-                        <div class="data-row">
-                            <h3>Email:</h3>
-                            <h3>Nombre:</h3>
-                            <h3>Apellidos:</h3>
-                        </div>
-                    </div>
-                </div>
-                <div class="client-item">
-                    <div class="client-item-images">
-                        <div class="edit-button">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>pencil</title><path d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z" />
-                            </svg>
-                        </div>
-                        <div class="delete-button">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>delete</title><path d="M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z" />
-                            </svg>
-                        </div>
-                    </div>
-                    <div class="client-item-data">
-                        <div class="data-row">
-                            <h3>Email:</h3>
-                            <h3>Nombre:</h3>
-                            <h3>Apellidos:</h3>
-                        </div>
-                    </div>
-                </div>
-                <div class="client-item">
-                    <div class="client-item-images">
-                        <div class="edit-button">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>pencil</title><path d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z" />
-                            </svg>
-                        </div>
-                        <div class="delete-button">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>delete</title><path d="M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z" />
-                            </svg>
-                        </div>
-                    </div>
-                    <div class="client-item-data">
-                        <div class="data-row">
-                            <h3>Email:</h3>
-                            <h3>Nombre:</h3>
-                            <h3>Apellidos:</h3>
-                        </div>
-                    </div>
-                </div>
-                <div class="client-item">
-                    <div class="client-item-images">
-                        <div class="edit-button">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>pencil</title><path d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z" />
-                            </svg>
-                        </div>
-                        <div class="delete-button">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>delete</title><path d="M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z" />
-                            </svg>
-                        </div>
-                    </div>
-                    <div class="client-item-data">
-                        <div class="data-row">
-                            <h3>Email:</h3>
-                            <h3>Nombre:</h3>
-                            <h3>Apellidos:</h3>
-                        </div>
-                    </div>
-                </div>
+                
             </div>
             <div class="page-counter">
                 <div class="counter-info">
@@ -324,6 +254,63 @@ class Table extends HTMLElement {
     const tableSection = this.shadow.querySelector('.table')
 
     const filter = this.shadow.querySelector('.filter-svg')
+
+    const table = this.shadow.querySelector('.table')
+
+    this.rows.forEach(row => {
+      const clientItem = document.createElement('div')
+      clientItem.className = 'client-item'
+      table.appendChild(clientItem)
+
+      const clientItemImages = document.createElement('div')
+      clientItemImages.className = 'client-item-images'
+      clientItem.appendChild(clientItemImages)
+
+      const editButton = document.createElement('div')
+      editButton.className = 'edit-button'
+      clientItemImages.appendChild(editButton)
+
+      const editSvg = document.createElement('div')
+      editSvg.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>pencil</title><path d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z" /></svg>'
+      editButton.appendChild(editSvg)
+
+      //   const editSvg = document.createElement('svg')
+      //   editSvg.setAttribute('xmlns', 'http://www.w3.org/2000/svg')
+      //   editSvg.setAttribute('viewBox', '0 0 24 24')
+
+      //   const editPath = document.createElement('path')
+      //   editPath.setAttribute('d', 'M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z')
+
+      //   editSvg.appendChild(editPath)
+      //   editButton.appendChild(editSvg)
+
+      const deleteButton = document.createElement('div')
+      deleteButton.className = 'delete-button'
+      clientItemImages.appendChild(deleteButton)
+
+      const deleteSvg = document.createElement('div')
+      deleteSvg.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>delete</title><path d="M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z" /></svg>'
+      deleteButton.appendChild(deleteSvg)
+
+      const clientItemData = document.createElement('div')
+      clientItemData.className = 'client-item-data'
+      clientItem.appendChild(clientItemData)
+      for (const [key, value] of Object.entries(row)) {
+        console.log(row)
+        if (key !== 'id') {
+          const dataRow = document.createElement('div')
+          dataRow.textContent = `${key}   :    ${value}`
+          clientItemData.appendChild(dataRow)
+        }
+      }
+
+      for (const [key, value] of Object.entries(row)) {
+        if (key === 'id') {
+          editButton.dataset.id = value
+          deleteButton.dataset.id = value
+        }
+      }
+    })
 
     tableSection?.addEventListener('click', async (event) => {
       if (event.target.closest('.delete-button')) {

@@ -16,7 +16,7 @@ class FaqForm extends HTMLElement {
               display:flex;
               flex-direction: column;
               justify-content: space-between;
-              max-width:50vw;
+              width:45vw;
             }
             
             .image-menu{
@@ -297,28 +297,30 @@ class FaqForm extends HTMLElement {
             }
             
             .error-window{
-              position:fixed;
-              right:20%;
-              top:5%;
               border-radius:5px;
               background-color: hsl(123, 59%, 51%);
-              opacity:0;
-              visibility:hidden;
-              transition:0.5s;
               padding:0 2%;
+              display:none;
             }
 
             .error-window.active{
-              position:fixed;
-              right:20%;
-              top:6%;
               border-radius:5px;
-              background-color: hsl(123, 59%, 51%);
-              opacity:1;
-              visibility:visible;
+              background-color: hsl(37, 99%, 57%, 1);
               z-index:1000;
-              transition:0.5s;
+              transition:0.7s;
               padding:0 2%;
+              cursor:pointer;
+              display:block;
+            }
+
+            .element{
+              color:white;
+              list-style-type: none;
+              font-size:1.1rem;
+              height:2rem;
+              align-items:center;
+              display:flex;
+              font-family: "Poppins", sans-serif;
             }
 
         </style>
@@ -337,8 +339,8 @@ class FaqForm extends HTMLElement {
                 <div class="send-form-button"> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>content-save</title><path d="M15,9H5V5H15M12,19A3,3 0 0,1 9,16A3,3 0 0,1 12,13A3,3 0 0,1 15,16A3,3 0 0,1 12,19M17,3H5C3.89,3 3,3.9 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V7L17,3Z" /></svg></div>
               </div>
             </div>
-            <div class="error-window active">
-              <ul></ul>
+            <div class="error-window">
+              <ul class="errors-list"></ul>
             </div>
             <div class="form-row active" data-value= "1">
               <input name="id" type="hidden">
@@ -436,9 +438,6 @@ class FaqForm extends HTMLElement {
     })
 
     save.addEventListener('click', async (event) => {
-      document.dispatchEvent(new CustomEvent('notification', {
-      }))
-
       const form = this.shadow.querySelector('form')
       const formData = new FormData(form)
       const formDataJson = Object.fromEntries(formData.entries())
@@ -446,7 +445,7 @@ class FaqForm extends HTMLElement {
       delete formDataJson.id
 
       try {
-        const response = await fetch('http://127.0.0.1:8080/api/admin/faqs', {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}${this.getAttribute('endpoint')}`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -469,21 +468,29 @@ class FaqForm extends HTMLElement {
               type: 'success'
             }
           }))
+          document.dispatchEvent(new CustomEvent('notification', {
+          }))
         }
       } catch (response) {
-        const error = await response.json()
+        const errors = await response.json()
 
-        error.message.forEach(message => {
-          console.log(message.message)
-          error.forEach(message => {
-            const windowUl = this.shadow.querySelector('ul')
-            const windowLi = this.shadow.createElement('li')
-            const windowP = this.shadow.createElement('p')
-            windowLi.innerHTML = message.message
-            windowLi.className = 'element'
-            windowUl.appendChild(windowLi)
-            windowLi.appencChild(windowP)
-          })
+        const errorWindow = this.shadow.querySelector('.error-window')
+        errorWindow.classList.add('active')
+        const windowUl = this.shadow.querySelector('.errors-list')
+        windowUl.innerHTML = ''
+
+        errors.message.forEach(error => {
+          const windowUl = this.shadow.querySelector('.errors-list')
+          const windowLi = document.createElement('li')
+          const windowP = document.createElement('p')
+          windowP.innerHTML = error.message
+          windowLi.className = 'element'
+          windowUl.appendChild(windowLi)
+          windowLi.appendChild(windowP)
+        })
+
+        errorWindow.addEventListener('click', async (event) => {
+          errorWindow.classList.remove('active')
         })
       }
     })
