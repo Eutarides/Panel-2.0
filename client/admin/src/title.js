@@ -5,6 +5,10 @@ class Title extends HTMLElement {
     this.render()
   }
 
+  connectedCallback () {
+    this.render()
+  };
+
   render () {
     this.shadow.innerHTML =
         `

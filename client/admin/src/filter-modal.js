@@ -2,10 +2,10 @@ class FilterModal extends HTMLElement {
   constructor () {
     super()
     this.shadow = this.attachShadow({ mode: 'open' })
-    this.render()
   }
 
   connectedCallback () {
+    this.render()
     document.addEventListener('show-filter-modal', event => {
       this.openModal()
     })

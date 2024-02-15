@@ -2,10 +2,10 @@ class ClientForm extends HTMLElement {
   constructor () {
     super()
     this.shadow = this.attachShadow({ mode: 'open' })
-    this.render()
   }
 
   connectedCallback () {
+    this.render()
   };
 
   render () {

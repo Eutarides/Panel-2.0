@@ -2,10 +2,10 @@ class FaqForm extends HTMLElement {
   constructor () {
     super()
     this.shadow = this.attachShadow({ mode: 'open' })
-    this.render()
   }
 
   connectedCallback () {
+    this.render()
   };
 
   render () {
@@ -442,6 +442,9 @@ class FaqForm extends HTMLElement {
       const formData = new FormData(form)
       const formDataJson = Object.fromEntries(formData.entries())
 
+      document.dispatchEvent(new CustomEvent('refresh', {
+      }))
+
       delete formDataJson.id
 
       try {
@@ -469,6 +472,8 @@ class FaqForm extends HTMLElement {
             }
           }))
           document.dispatchEvent(new CustomEvent('notification', {
+          }))
+          document.dispatchEvent(new CustomEvent('refresh', {
           }))
         }
       } catch (response) {

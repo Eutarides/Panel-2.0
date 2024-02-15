@@ -6,6 +6,7 @@ class Notification extends HTMLElement {
   }
 
   connectedCallback () {
+    this.render()
     document.addEventListener('notification', event => {
       console.log('compa')
       this.notification()

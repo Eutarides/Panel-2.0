@@ -2,13 +2,11 @@ class Overlay extends HTMLElement {
   constructor () {
     super()
     this.shadow = this.attachShadow({ mode: 'open' })
-    this.render()
   }
 
   async connectedCallback () {
-    document.addEventListener('show-overlay', this.handleShowOverlay.bind(this))
-
     this.render()
+    document.addEventListener('show-overlay', this.handleShowOverlay.bind(this))
   }
 
   handleShowOverlay (event) {

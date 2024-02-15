@@ -2,10 +2,10 @@ class DeleteModal extends HTMLElement {
   constructor () {
     super()
     this.shadow = this.attachShadow({ mode: 'open' })
-    this.render()
   }
 
   connectedCallback () {
+    this.render()
     document.addEventListener('show-delete-modal', event => {
       console.log('compa')
       this.openModal()

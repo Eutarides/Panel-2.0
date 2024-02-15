@@ -7,6 +7,9 @@ class Table extends HTMLElement {
 
   connectedCallback () {
     this.loadData().then(() => this.render())
+    document.addEventListener('refresh', event => {
+      this.render()
+    })
   };
 
   async loadData () {
@@ -52,11 +55,11 @@ class Table extends HTMLElement {
             }
             
             .edit-button{
-                width:6%;
+                width:5%;
             }
             
             .delete-button{
-                width:6%;
+                width:5%;
             }
             
             .client-item{
@@ -310,6 +313,21 @@ class Table extends HTMLElement {
           deleteButton.dataset.id = value
         }
       }
+
+      deleteButton.addEventListener('click', async (event) => {
+        fetch(`${import.meta.env.VITE_API_URL}${this.getAttribute('endpoint')}/${this.id}`, {
+          method: 'DELETE'
+        }).then(response => {
+          if (response.ok) {
+            console.log('Registro eliminado con éxito')
+            document.dispatchEvent(new CustomEvent('refresh-table'))
+          } else {
+            console.log('Error al eliminar el registro')
+          }
+        }).catch(error => {
+          console.log(error)
+        })
+      })
     })
 
     tableSection?.addEventListener('click', async (event) => {
