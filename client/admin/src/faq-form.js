@@ -6,7 +6,35 @@ class FaqForm extends HTMLElement {
 
   connectedCallback () {
     this.render()
+    document.addEventListener('load-data', this.handleLoadData.bind(this))
   };
+
+  handleLoadData (event) {
+    document.addEventListener('load-data', async event => {
+      this.id = event.detail.id
+      await this.populateFormFields()
+    })
+  }
+
+  async populateFormFields () {
+    if (!this.id) return
+
+    try {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}${this.getAttribute('endpoint')}/${this.id}`)
+      if (!response.ok) throw new Error('Failed to fetch data')
+
+      const data = await response.json()
+
+      Object.entries(data).forEach(([key, value]) => {
+        const input = this.shadow.querySelector(`input[name="${key}"]`)
+        if (input) {
+          input.value = value
+        }
+      })
+    } catch (error) {
+      console.error(error)
+    }
+  }
 
   render () {
     this.shadow.innerHTML =
@@ -497,6 +525,77 @@ class FaqForm extends HTMLElement {
         errorWindow.addEventListener('click', async (event) => {
           errorWindow.classList.remove('active')
         })
+      }
+    })
+
+    save.addEventListener('click', async (event) => {
+      const form = this.shadow.querySelector('form')
+      const formData = new FormData(form)
+      const formDataJson = Object.fromEntries(formData.entries())
+
+      const id = formDataJson.id
+
+      const response = await fetch(`${import.meta.env.VITE_API_URL}${this.getAttribute('endpoint')}/${id}`)
+      const exists = response.status === 200
+
+      if (exists) {
+        try {
+          const putResponse = await fetch(`${import.meta.env.VITE_API_URL}${this.getAttribute('endpoint')}/${id}`, {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formDataJson)
+          })
+
+          if (putResponse.status === 200) {
+            const data = await putResponse.json()
+            Object.entries(data).forEach(([key, value]) => {
+              console.log(`${key}: ${value}`)
+            })
+            document.dispatchEvent(new CustomEvent('message', {
+              detail: {
+                text: 'Registro actualizado correctamente',
+                type: 'success'
+              }
+            }))
+            document.dispatchEvent(new CustomEvent('notification', {}))
+            document.dispatchEvent(new CustomEvent('refresh', {}))
+          } else {
+            throw new Error('Error al actualizar el registro')
+          }
+        } catch (error) {
+          console.error(error)
+        }
+      } else {
+        try {
+          const postResponse = await fetch(`${import.meta.env.VITE_API_URL}${this.getAttribute('endpoint')}`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formDataJson)
+          })
+
+          if (postResponse.status === 200) {
+            const data = await postResponse.json()
+            Object.entries(data).forEach(([key, value]) => {
+              console.log(`${key}: ${value}`)
+            })
+            document.dispatchEvent(new CustomEvent('message', {
+              detail: {
+                text: 'Registro guardado correctamente',
+                type: 'success'
+              }
+            }))
+            document.dispatchEvent(new CustomEvent('notification', {}))
+            document.dispatchEvent(new CustomEvent('refresh', {}))
+          } else {
+            throw new Error('Error al guardar el registro')
+          }
+        } catch (error) {
+          console.error(error)
+        }
       }
     })
   };

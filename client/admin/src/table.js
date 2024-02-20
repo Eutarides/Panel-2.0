@@ -328,6 +328,14 @@ class Table extends HTMLElement {
           console.log(error)
         })
       })
+
+      editButton.addEventListener('click', event => {
+        document.dispatchEvent(new CustomEvent('load-data', {
+          detail: {
+            id: editButton.dataset.id
+          }
+        }))
+      })
     })
 
     tableSection?.addEventListener('click', async (event) => {
