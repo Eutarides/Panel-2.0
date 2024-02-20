@@ -470,70 +470,12 @@ class FaqForm extends HTMLElement {
       const formData = new FormData(form)
       const formDataJson = Object.fromEntries(formData.entries())
 
+      const id = formDataJson.id
+
       document.dispatchEvent(new CustomEvent('refresh', {
       }))
 
       delete formDataJson.id
-
-      try {
-        const response = await fetch(`${import.meta.env.VITE_API_URL}${this.getAttribute('endpoint')}`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(formDataJson)
-        })
-
-        if (response.status === 500 || response.status === 422) {
-          throw response
-        }
-
-        if (response.status === 200) {
-          const data = await response.json()
-          Object.entries(data).forEach(([key, value]) => {
-            console.log(`${key}: ${value}`)
-          })
-          document.dispatchEvent(new CustomEvent('message', {
-            detail: {
-              text: 'Formulario enviado correctamente',
-              type: 'success'
-            }
-          }))
-          document.dispatchEvent(new CustomEvent('notification', {
-          }))
-          document.dispatchEvent(new CustomEvent('refresh', {
-          }))
-        }
-      } catch (response) {
-        const errors = await response.json()
-
-        const errorWindow = this.shadow.querySelector('.error-window')
-        errorWindow.classList.add('active')
-        const windowUl = this.shadow.querySelector('.errors-list')
-        windowUl.innerHTML = ''
-
-        errors.message.forEach(error => {
-          const windowUl = this.shadow.querySelector('.errors-list')
-          const windowLi = document.createElement('li')
-          const windowP = document.createElement('p')
-          windowP.innerHTML = error.message
-          windowLi.className = 'element'
-          windowUl.appendChild(windowLi)
-          windowLi.appendChild(windowP)
-        })
-
-        errorWindow.addEventListener('click', async (event) => {
-          errorWindow.classList.remove('active')
-        })
-      }
-    })
-
-    save.addEventListener('click', async (event) => {
-      const form = this.shadow.querySelector('form')
-      const formData = new FormData(form)
-      const formDataJson = Object.fromEntries(formData.entries())
-
-      const id = formDataJson.id
 
       const response = await fetch(`${import.meta.env.VITE_API_URL}${this.getAttribute('endpoint')}/${id}`)
       const exists = response.status === 200
@@ -565,7 +507,26 @@ class FaqForm extends HTMLElement {
             throw new Error('Error al actualizar el registro')
           }
         } catch (error) {
-          console.error(error)
+          const errors = await response.json()
+
+          const errorWindow = this.shadow.querySelector('.error-window')
+          errorWindow.classList.add('active')
+          const windowUl = this.shadow.querySelector('.errors-list')
+          windowUl.innerHTML = ''
+
+          errors.message.forEach(error => {
+            const windowUl = this.shadow.querySelector('.errors-list')
+            const windowLi = document.createElement('li')
+            const windowP = document.createElement('p')
+            windowP.innerHTML = error.message
+            windowLi.className = 'element'
+            windowUl.appendChild(windowLi)
+            windowLi.appendChild(windowP)
+          })
+
+          errorWindow.addEventListener('click', async (event) => {
+            errorWindow.classList.remove('active')
+          })
         }
       } else {
         try {
@@ -590,11 +551,28 @@ class FaqForm extends HTMLElement {
             }))
             document.dispatchEvent(new CustomEvent('notification', {}))
             document.dispatchEvent(new CustomEvent('refresh', {}))
-          } else {
-            throw new Error('Error al guardar el registro')
           }
-        } catch (error) {
-          console.error(error)
+        } catch (response) {
+          const errors = await response.json()
+
+          const errorWindow = this.shadow.querySelector('.error-window')
+          errorWindow.classList.add('active')
+          const windowUl = this.shadow.querySelector('.errors-list')
+          windowUl.innerHTML = ''
+
+          errors.message.forEach(error => {
+            const windowUl = this.shadow.querySelector('.errors-list')
+            const windowLi = document.createElement('li')
+            const windowP = document.createElement('p')
+            windowP.innerHTML = error.message
+            windowLi.className = 'element'
+            windowUl.appendChild(windowLi)
+            windowLi.appendChild(windowP)
+          })
+
+          errorWindow.addEventListener('click', async (event) => {
+            errorWindow.classList.remove('active')
+          })
         }
       }
     })
