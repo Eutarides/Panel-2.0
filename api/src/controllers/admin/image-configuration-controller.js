@@ -1,6 +1,7 @@
-const db = require('../../models');
-const ImageConfiguration = db.ImageConfiguration;
-const Op = db.Sequelize.Op;
+const sequelizeDb = require('../../models/sequelize')
+
+const ImageConfiguration = sequelizeDb.ImageConfiguration;
+const Op = sequelizeDb.Sequelize.Op;
 
 exports.create = (req, res) => {
   ImageConfiguration.create(req.body).then(data => {

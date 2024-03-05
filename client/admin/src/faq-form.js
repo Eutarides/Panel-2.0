@@ -376,7 +376,7 @@ class FaqForm extends HTMLElement {
                 <div class="element-placeholder">
                   <p>Nombre</p>
                 </div>
-                <input name="name" type="text" class="validate">
+                <input name="locales.es.answer" type="text" class="validate">
               </div>
             </div>
 
@@ -396,14 +396,14 @@ class FaqForm extends HTMLElement {
                   <div class="element-placeholder">
                     <p>Pregunta</p>
                   </div>
-                  <input name="title-es" type="text">
+                  <input name="locales.es.question" type="text">
                 </div>
 
                 <div class="form-element">
                   <div class="element-placeholder">
                     <p>Respuesta</p>
                   </div>
-                  <textarea placeholder="Introduce una respuesta"></textarea>
+                  <textarea placeholder="Introduce una respuesta" name="locales.es.answer"></textarea>
                 </div>
               </div>
               <div class="form-column" data-value= "4">
@@ -411,14 +411,14 @@ class FaqForm extends HTMLElement {
                   <div class="element-placeholder">
                     <p>Question</p>
                   </div>
-                  <input name="title-en" type="text">
+                  <input name="locales.en.question" type="text">
                 </div>
 
                 <div class="form-element">
                   <div class="element-placeholder">
                     <p>Answer</p>
                   </div>
-                  <textarea placeholder="Enter an answer"></textarea>
+                  <textarea placeholder="Enter an answer" name="locales.en.answer"></textarea>
                 </div>
               </div>
             </div>
@@ -531,7 +531,33 @@ class FaqForm extends HTMLElement {
     save.addEventListener('click', async (event) => {
       const form = this.shadow.querySelector('form')
       const formData = new FormData(form)
-      const formDataJson = Object.fromEntries(formData.entries())
+      const formDataJson = {}
+
+      for (const [key, value] of formData.entries()) {
+        if (key.includes('locales')) {
+          const [prefix, locales, field] = key.split('.')
+
+          if (!(prefix in formDataJson)) {
+            formDataJson[prefix] = {}
+          }
+
+          if (!(locales in formDataJson[prefix])) {
+            formDataJson[prefix][locales] = {}
+          }
+
+          formDataJson[prefix][locales][field] = value ?? null
+        } else if (key.includes('.')) {
+          const [prefix, field] = key.split('.')
+
+          if (!(prefix in formDataJson)) {
+            formDataJson[prefix] = {}
+          }
+
+          formDataJson[prefix][field] = value ?? null
+        } else {
+          formDataJson[key] = value ?? null
+        }
+      }
 
       const id = formDataJson.id
 
