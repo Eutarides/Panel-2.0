@@ -85,7 +85,6 @@ class Table extends HTMLElement {
                 justify-content: space-between;
                 align-items: center;
                 flex-direction: column;
-                gap:1rem;
             }
             
             .client-item-data-row{
@@ -96,30 +95,25 @@ class Table extends HTMLElement {
                 justify-content: space-between;
             }
             
-            .data-row h3{
-                color:white;
-                font-size: 1.3rem;
-                font-family: "Poppins", sans-serif;
-                margin: 0;
+            .data-row{
+              width:95%;
+              height:50%;
+              flex-direction: column;
+              display: flex;
+              color:white;
+              font-size: 1rem;
+              font-family: "Poppins", sans-serif;
+              margin: 0;
             }
             
             .info{
                 height:90%;
             }
-            
-            .client-item-data div{
-                width:95%;
-                height:50%;
-                flex-direction: column;
-                display: flex;
-                color:white;
-                font-size: 1.3rem;
-                font-family: "Poppins", sans-serif;
-                margin: 0;
-            }
+
             .page-counter{
                 width:100%;
             }
+
             button{
                 width:100%;
                 height:50%;
@@ -138,6 +132,7 @@ class Table extends HTMLElement {
                 display: flex;
                 flex-direction:column;
                 gap:1rem;
+                overflow:hidden;
             
             }
             
@@ -299,9 +294,9 @@ class Table extends HTMLElement {
       clientItemData.className = 'client-item-data'
       clientItem.appendChild(clientItemData)
       for (const [key, value] of Object.entries(row)) {
-        console.log(row)
         if (key !== 'id') {
           const dataRow = document.createElement('div')
+          dataRow.className = 'data-row'
           dataRow.textContent = `${key}   :    ${value}`
           clientItemData.appendChild(dataRow)
         }
