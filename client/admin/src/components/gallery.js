@@ -6,6 +6,8 @@ class Gallery extends HTMLElement {
 
   connectedCallback () {
     this.render()
+    this.name = this.getAttribute('name')
+    console.log(this.name)
   };
 
   render () {
@@ -16,13 +18,14 @@ class Gallery extends HTMLElement {
                 display:flex;
                 flex-direction:row;
                 justify-content:space-between;
-                width:46vw;
+                margin-left:35%;
             }
 
             .gallery-column{
                 display:flex;
                 flex-direction:column;
                 width:25%;
+                align-items:center;
             }
 
             .gallery-title{
@@ -72,25 +75,7 @@ class Gallery extends HTMLElement {
                     <h2>Imagen destacada</h2>
                 </div>
                 <div class="gallery-data">
-                    <insert-image-component></insert-image-component>
-                </div>
-            </div>
-
-            <div class="gallery-column">
-                <div class="gallery-title">
-                    <h2>Imagen destacada</h2>
-                </div>
-                <div class="gallery-data">
-                    <insert-image-component></insert-image-component>
-                </div>
-            </div>
-
-            <div class="gallery-column">
-                <div class="gallery-title">
-                    <h2>Imagen destacada</h2>
-                </div>
-                <div class="gallery-data">
-                    <insert-image-component></insert-image-component>
+                    <insert-image-component name="featured-image"></insert-image-component>
                 </div>
             </div>
         </div>

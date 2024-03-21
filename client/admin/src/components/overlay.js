@@ -105,6 +105,15 @@ class Overlay extends HTMLElement {
             align-items:center;
             cursor:pointer;
           }
+
+          .frame{
+            width:80px;
+            height:80px;
+            background-color:white;
+            display:flex;
+            align-items:center;
+            cursor:pointer;
+          }
   
           .upload-frame svg{
             width:40%;
@@ -141,7 +150,24 @@ class Overlay extends HTMLElement {
             gap:1rem;
             flex-wrap:wrap;
           }
-        
+
+          .delete-button{
+            width:100%;
+            height:3rem;
+            background-color: rgb(119, 173, 193);
+            color:white;
+            cursor: pointer;
+            border-radius:10px;
+            border:none;
+            font-size:1.3rem;
+            background-color: rgba(231, 118, 26, 0.904);
+            position:relative;
+            top:64%;
+          }
+
+          button h3{
+            font-size:1rem;
+          }
         </style>
 
         <div class="overlay">
@@ -167,6 +193,10 @@ class Overlay extends HTMLElement {
                 <h3>Texto alternativo</h3>
                 <input></input>
               </div>
+
+              <button class="delete-button">
+                <h3>Borrar</h3>
+              </button>
             </div>
           </div>
         </div>
@@ -205,7 +235,7 @@ class Overlay extends HTMLElement {
 
     subContainer.addEventListener('click', () => {
       const fileInput = document.createElement('input')
-      fileInput.setAttribute = ('name', 'file')
+      fileInput.setAttribute('name', 'file')
       fileInput.type = 'file'
       fileInput.style.display = 'none'
 
@@ -220,13 +250,91 @@ class Overlay extends HTMLElement {
   }
 
   async uploadImage (file) {
-    const formData = new FormData()
-    formData.append('file', file)
+    try {
+      const formData = new FormData()
+      formData.append('file', file)
 
-    const result = await fetch(`${import.meta.env.VITE_API_URL}/api/admin/images`, {
-      method: 'POST',
-      body: formData
-    })
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/admin/images`, {
+        method: 'POST',
+        body: formData
+      })
+
+      const result = await response.json()
+      console.log(result)
+
+      result.forEach(file => {
+        const thumb = document.createElement('div')
+        thumb.classList.add('frame')
+
+        const img = document.createElement('img')
+        img.src = `${import.meta.env.VITE_API_URL}/api/admin/images/${file}`
+        img.alt = 'x'
+
+        const closeButton = document.createElement('div')
+        closeButton.classList.add('close-button')
+        closeButton.textContent = 'x'
+
+        const subContainer = this.shadow.querySelector('.sub-container')
+
+        thumb.appendChild(closeButton)
+        thumb.addEventListener('click', () => {
+          subContainer.querySelectorAll('.frame').forEach(avatar => {
+            avatar.classList.remove('selected')
+          })
+        })
+        thumb.classList.add('selected')
+        const galleryOverlayRow = this.shadow.querySelector('.gallery-overlay-row')
+        thumb.appendChild(img)
+        galleryOverlayRow.prepend(thumb)
+      })
+    } catch (error) {
+      console.error('Error al procesar una imagen:', error)
+      throw error
+    }
+  }
+
+  async paintImage (file) {
+    try {
+      const formData = new FormData()
+      formData.append('file', file)
+
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/admin/images`, {
+        method: 'GET',
+        body: formData
+      })
+
+      const result = await response.json()
+      console.log(result)
+
+      result.forEach(file => {
+        const thumb = document.createElement('div')
+        thumb.classList.add('frame')
+
+        const img = document.createElement('img')
+        img.src = `${import.meta.env.VITE_API_URL}/api/admin/images/${file}`
+        img.alt = 'x'
+
+        const closeButton = document.createElement('div')
+        closeButton.classList.add('close-button')
+        closeButton.textContent = 'x'
+
+        const subContainer = this.shadow.querySelector('.sub-container')
+
+        thumb.appendChild(closeButton)
+        thumb.addEventListener('click', () => {
+          subContainer.querySelectorAll('.frame').forEach(avatar => {
+            avatar.classList.remove('selected')
+          })
+        })
+        thumb.classList.add('selected')
+        const galleryOverlayRow = this.shadow.querySelector('.gallery-overlay-row')
+        thumb.appendChild(img)
+        galleryOverlayRow.prepend(thumb)
+      })
+    } catch (error) {
+      console.error('Error al procesar una imagen:', error)
+      throw error
+    }
   }
 }
 

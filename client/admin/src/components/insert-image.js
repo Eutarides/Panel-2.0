@@ -1,3 +1,6 @@
+import { store } from '../redux/store.js'
+import { setImageGallery } from '../redux/images-slice.js'
+
 class InsertImage extends HTMLElement {
   constructor () {
     super()
@@ -42,6 +45,11 @@ class InsertImage extends HTMLElement {
     const uploadFrame = this.shadow.querySelector('.upload-frame')
 
     uploadFrame.addEventListener('click', (event) => {
+      const image = {
+        name: this.getAttribute('name')
+      }
+
+      store.dispatch(setImageGallery(image))
       document.dispatchEvent(new CustomEvent('show-overlay'))
     })
   }

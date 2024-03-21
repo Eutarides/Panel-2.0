@@ -8,6 +8,7 @@ module.exports = (app, upload) => {
   router.get('/:id', controller.findOne)
   router.put('/:id', controller.update)
   router.delete('/:id', controller.delete)
+  router.get('/image/:filename', controller.getImage)
 
   app.use('/api/admin/images', router)
 }
